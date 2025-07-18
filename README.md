@@ -72,8 +72,22 @@ tags: ["tag1", "tag2"]
 
 ## Deployment
 
-This site is designed for static hosting. Build with `npm run build` and deploy the `dist/` folder to any static hosting service.
+This site is deployed on **Cloudflare Pages** with automatic deployments from the main branch.
 
-## Development Roadmap
+### Cloudflare Pages Setup
+- Build command: `npm run build`
+- Deploy command: (empty - static site)
+- Build output directory: `dist`
+- Auto-deploy: Enabled on push to main branch
 
-See [ROADMAP.md](./ROADMAP.md) for planned features and development phases.
+### Manual Deployment
+For other static hosting services, build with `npm run build` and deploy the `dist/` folder.
+
+## Documentation
+
+- [ROADMAP.md](./ROADMAP.md) - Development phases and planned features
+- [HOSTING.md](./HOSTING.md) - Cloudflare Pages deployment guide
+
+## Live Site
+
+Visit the live site at: [jeansy.org](https://jeansy.org)

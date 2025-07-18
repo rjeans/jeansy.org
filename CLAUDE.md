@@ -44,3 +44,4 @@ A minimalistic personal website for an engineer who is also a professional IT ma
 - Use only standard ASCII characters in markdown files
 - No fancy Unicode symbols or emojis in documentation
 - Keep markdown syntax clean and portable
+- Never use emojis
