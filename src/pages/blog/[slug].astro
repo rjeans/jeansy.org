@@ -30,9 +30,10 @@ const { Content } = await post.render();
       "@type": "BlogPosting",
       "headline": post.data.title,
       "description": post.data.description,
+      "image": post.data.image ? `https://jeansy.org${post.data.image}` : "https://jeansy.org/images/og-default.svg",
       "author": {
         "@type": "Person",
-        "name": "Richard Jeans",
+        "name": post.data.author || "Richard Jeans",
         "url": "https://jeansy.org",
         "sameAs": [
           "https://github.com/rjeans",
@@ -45,7 +46,11 @@ const { Content } = await post.render();
       "publisher": {
         "@type": "Person",
         "name": "Richard Jeans",
-        "url": "https://jeansy.org"
+        "url": "https://jeansy.org",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://jeansy.org/images/og-default.svg"
+        }
       },
       "mainEntityOfPage": {
         "@type": "WebPage",
