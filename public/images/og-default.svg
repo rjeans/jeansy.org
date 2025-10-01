@@ -1,0 +1,6 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <text x="600" y="280" font-family="Courier New, monospace" font-size="72" fill="#f0f0f0" text-anchor="middle" font-weight="bold">jeansy.org</text>
+  <text x="600" y="370" font-family="Courier New, monospace" font-size="32" fill="#d0d0d0" text-anchor="middle">Richard Jeans</text>
+  <text x="600" y="420" font-family="Courier New, monospace" font-size="24" fill="#999999" text-anchor="middle">Engineer and IT Manager</text>
+</svg>

@@ -8,25 +8,29 @@ const sortedPosts = posts.sort((a, b) => new Date(b.data.pubDate).getTime() - ne
 
 <BaseLayout title="Blog - jeansy.org">
   <div class="max-w-3xl mx-auto">
-    <h1 class="text-3xl font-bold mb-8">Blog</h1>
+    <h1 class="text-xl font-bold mb-8" style="color: var(--text-primary);">Blog</h1>
     
     {sortedPosts.length === 0 ? (
-      <p class="text-gray-600 text-center py-12">
+      <p class="text-center py-12" style="color: var(--text-secondary);">
         No blog posts yet. Check back soon for insights on engineering and IT management.
       </p>
     ) : (
       <div class="space-y-8">
         {sortedPosts.map((post) => (
-          <article class="border-b border-gray-200 pb-8">
-            <h2 class="text-2xl font-semibold mb-2">
-              <a href={`/blog/${post.slug}`} class="hover:text-blue-600 transition-colors">
+          <article class="border-b pb-6" style="border-color: var(--border-color);">
+            <div class="text-sm mb-2" style="color: var(--text-muted);">
+              {new Date(post.data.pubDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              })}
+            </div>
+            <h2 class="text-xl font-semibold mb-2">
+              <a href={`/blog/${post.slug}`} style="color: var(--link-color); text-decoration: none;" class="hover:underline">
                 {post.data.title}
               </a>
             </h2>
-            <div class="text-gray-500 text-sm mb-4">
-              {new Date(post.data.pubDate).toLocaleDateString()}
-            </div>
-            <p class="text-gray-700">
+            <p style="color: var(--text-secondary); line-height: 1.6;">
               {post.data.description}
             </p>
           </article>

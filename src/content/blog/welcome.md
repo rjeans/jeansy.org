@@ -1,7 +1,7 @@
 ---
 title: "Welcome to jeansy.org"
 description: "First post on the new site - thoughts on engineering, management, and sharing knowledge"
-pubDate: 2024-01-15
+pubDate: 2025-01-15
 tags: ["meta", "engineering", "management"]
 ---
 

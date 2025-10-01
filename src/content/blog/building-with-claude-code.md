@@ -5,8 +5,6 @@ pubDate: 2025-01-18
 tags: ["development", "tools", "astro", "claude-code"]
 ---
 
-# Building This Site with Claude Code: A Developer's Journey
-
 After years of managing development teams and architecting systems, I decided it was time to create a personal space to share my thoughts on engineering and leadership. The twist? I wanted to explore Claude Code as my development partner.
 
 ## The Motivation

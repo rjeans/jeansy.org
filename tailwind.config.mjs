@@ -7,23 +7,23 @@ export default {
         DEFAULT: {
           css: {
             maxWidth: '65ch',
-            color: '#334155',
+            color: 'var(--text-secondary)',
             lineHeight: '1.7',
             h1: {
               fontWeight: '700',
-              color: '#1e293b',
+              color: 'var(--text-primary)',
             },
             h2: {
               fontWeight: '600',
-              color: '#1e293b',
+              color: 'var(--text-primary)',
             },
             h3: {
               fontWeight: '600',
-              color: '#1e293b',
+              color: 'var(--text-primary)',
             },
             code: {
-              color: '#e11d48',
-              backgroundColor: '#f8fafc',
+              color: 'var(--code-text)',
+              backgroundColor: 'var(--code-bg)',
               padding: '0.2rem 0.4rem',
               borderRadius: '0.25rem',
               fontWeight: '500',
