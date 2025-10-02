@@ -13,7 +13,6 @@ const recentPosts = posts.sort((a, b) => new Date(b.data.pubDate).getTime() - ne
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Richard Jeans",
-      "jobTitle": "Engineer and IT Manager",
       "url": "https://jeansy.org",
       "sameAs": [
         "https://github.com/rjeans",
@@ -22,7 +21,7 @@ const recentPosts = posts.sort((a, b) => new Date(b.data.pubDate).getTime() - ne
         "https://www.instagram.com/rickj66/",
         "https://www.threads.com/@rickj66"
       ],
-      "description": "Engineer and IT manager. Sharing thoughts on technology, management, and building things."
+      "description": "Personal website, sharing thoughts on projects, ideas, and things that spark my curiosity."
     })} />
 
     <!-- JSON-LD Structured Data for Website -->
@@ -35,7 +34,7 @@ const recentPosts = posts.sort((a, b) => new Date(b.data.pubDate).getTime() - ne
         "@type": "Person",
         "name": "Richard Jeans"
       },
-      "description": "Personal website of an engineer and IT manager",
+      "description": "Personal website, sharing thoughts on projects, ideas, and things that spark my curiosity.",
       "inLanguage": "en-US"
     })} />
   </Fragment>
@@ -43,7 +42,7 @@ const recentPosts = posts.sort((a, b) => new Date(b.data.pubDate).getTime() - ne
     <div class="mb-16">
       <h1 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">Richard Jeans</h1>
       <p class="text-lg" style="color: var(--text-secondary); line-height: 1.8;">
-        Engineer and IT manager. Sharing thoughts on technology, management, and building things.
+        Personal website, sharing thoughts on projects, ideas, and things that spark my curiosity. All opinions mine. For my professional life, please get in touch via <a href="https://www.linkedin.com/in/rjeans/" target="_blank" rel="noopener noreferrer" style="color: var(--link-color); text-decoration: none;" class="hover:underline">LinkedIn</a>.
       </p>
     </div>
 
@@ -57,10 +56,10 @@ const recentPosts = posts.sort((a, b) => new Date(b.data.pubDate).getTime() - ne
           {recentPosts.map((post) => (
             <article class="border-b pb-6" style="border-color: var(--border-color);">
               <div class="text-sm mb-2" style="color: var(--text-muted);">
-                {new Date(post.data.pubDate).toLocaleDateString('en-US', {
+                {new Date(post.data.pubDate).toLocaleDateString('en-GB', {
                   year: 'numeric',
-                  month: 'short',
-                  day: 'numeric'
+                  month: '2-digit',
+                  day: '2-digit'
                 })}
               </div>
               <h3 class="text-xl font-semibold mb-2">

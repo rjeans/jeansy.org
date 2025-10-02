@@ -5,7 +5,7 @@ export interface Props {
   image?: string;
 }
 
-const { title, description = "Personal website of an engineer and IT manager", image = "/images/og-default.svg" } = Astro.props;
+const { title, description = "Personal website, sharing thoughts on projects, ideas, and things that spark my curiosity. All opinions mine.", image = "/images/og-default.svg" } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.site);
 ---
