@@ -13,7 +13,7 @@ A minimalistic personal website for an engineer and IT manager. Built with Astro
 - Social media optimization (Open Graph, Twitter Cards)
 - TypeScript support
 
-## Tech Stack
+## The Tech Stack
 
 - **Framework**: Astro 4.x
 - **Styling**: Tailwind CSS with Typography plugin
