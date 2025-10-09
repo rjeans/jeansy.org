@@ -66,7 +66,7 @@ I don't believe this is somehow innate to human intelligence and not available t
 
 This "rightness" of a solution is common across many different areas of creative and technical endeavours. The elegance of simplicity and necessity of the solution is the principle of Occam's Razor - and Occam didn't write any software.
 
-So I am hooked. It was a great process and I am pleased with the results. Working with Claude was like being the dev lead of an extremely motivated but slightly over confident team of well informed but perhaps inexperienced developers. I was worried that I would feel removed from the code and process. For writing the code, I wasn't needed. I take responsibility for the code but none of the credit. But my role in the process seemed important and definitely improved the outcome. 
+So I am hooked. It was a great process and I am pleased with the results. Working with Claude was like being the dev lead of an extremely motivated but slightly over confident team of well informed but perhaps inexperienced developers. I was worried that I would feel removed from the code and process. For writing the code, I wasn't needed. I take responsibility for the result but none of the credit. But my role in the process seemed important and definitely improved the outcome. 
 
 It's a bit like being a good dev lead. Perhaps with better prompt engineering and the pace at which models are developing, even this role can be engineered out. But for the moment I like the idea that an old hand and enthusiastic AI developer make a good team.
 
