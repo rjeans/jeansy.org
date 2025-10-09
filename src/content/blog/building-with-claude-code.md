@@ -1,19 +1,19 @@
 ---
 title: "Building This Site with Claude Code: An introduction"
-description: "My experience using Claude Code to create a personal blog from scratch - the good, the challenging, and the surprisingly effective."
-pubDate: 2025-07-18
-tags: ["development", "tools", "astro", "claude-code"]
+description: "My experience using Claude Code to create a personal blog from scratch - and the difficult part, writing the content myself (without Claude's help)."
+pubDate: 2025-10-09
+tags: ["ai", "development", "claude-code", "mcp", "astro"]
 ---
 
-A confession. I built this site using Claude Code, then let it write the first post. The post was accurate, effective but instantly recognisable as AI. So I rewrote the content and this has been the most difficult part of the process of re-launching my website.
+A confession. I built this site using Claude Code, then let it write the first post. The post was accurate, effective but instantly recognizable as AI. So I rewrote the content and this has been the most difficult part of the process of re-launching my website.
 
 I have had many different sites at [jeansy.org](https://jeansy.org) over the years. Wordpress, static HTML, Drupal. I suspect there were others. With all of them there was a common pattern, I loved playing with the hosting technology but hated writing anything. 
 
-The technology motivation is still there. Rebuilding the site was an opportunity to use Claude Code and understand better AI coding hands on. Certainly this task should be right up the street of an AI coding assistant? The experience was a great one. 
+The technology motivation is still there. Rebuilding the site was an opportunity to use Claude Code and understand AI coding hands-on better. Certainly this task should be right up the street of an AI coding assistant? The experience was a great one. 
 
-I learnt something about development but more profound was having an insight on how things could change. I remain of the opinion that experience and judgement - the tacit sense of what good looks like - is crucial in this partnership. Perhaps that is hubris but I will keep an open mind.
+I learned something about development but more profound was having an insight into how things could change. I remain of the opinion that experience and judgment - the tacit sense of what good looks like - is crucial in this partnership. Perhaps that is hubris but I will keep an open mind.
 
-Second motivation was to start afresh and create some meaningful content. I have been journalling on and off over the last few years and have really enjoyed it. Don't worry, I don't plan to share my journal, but perhaps I could develop a style and some better skill at writing.
+Second motivation was to start afresh and create some meaningful content. I have been journaling on and off over the last few years and have really enjoyed it. Don't worry, I don't plan to share my journal, but perhaps I could develop a style and some better skill at writing.
 
 So even if the AI has helped build the technology - the writing is all mine. Be kind.
 
@@ -48,11 +48,11 @@ But overall it needed to be reminded to take a step back and keep it simple. Tes
 
 ## The Playwright Magic
 
-From an agentic AI coding perspective, the process relied on Visual Studio Code, GitHub, and of course Claude. Part way through, I became more interestd in Model Context Protocol (MCP). This is a standard to allow AI models to connect and interact with tools and data sources in a context-aware way. Simply put it is a way to dramatically up-skill the AI process. 
+From an agentic AI coding perspective, the process relied on Visual Studio Code, GitHub, and of course Claude. Part way through, I became more interested in Model Context Protocol (MCP). This is a standard to allow AI models to connect and interact with tools and data sources in a context-aware way. Simply put, it is a way to dramatically upskill the AI process. 
 
-The MCP server I was interested in is Playwright. This allows th AI model to interact with a web site using a real browser. So instaed of guessing how the website looks, the AI can "look" at it like a normal user. Well "look" might be a stretch but certainly this really helped refine the look and feel. 
+The MCP server I was interested in is Playwright. This allows the AI model to interact with a website using a real browser. So instead of guessing how the website looks, the AI can "look" at it like a normal user. Well, "look" might be a stretch but certainly this really helped refine the look and feel. 
 
-When I complained about the contrast of a font, the AI would kindly open a browser, navigate to the page, take a snapshot and refine the code. This really felt like a collaboration - looking at the same view and making adjustments. Almost like the AI was the otherside of the glass. 
+When I complained about the contrast of a font, the AI would kindly open a browser, navigate to the page, take a snapshot and refine the code. This really felt like a collaboration - looking at the same view and making adjustments. Almost like the AI was the other side of the glass. 
 
 ## The Human Role
 
