@@ -4,7 +4,9 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  integrations: [tailwind(), mdx(), sitemap()],
+  integrations: [tailwind(), mdx(), sitemap({
+    lastmod: new Date(),
+  })],
   site: 'https://jeansy.org',
   markdown: {
     shikiConfig: {
