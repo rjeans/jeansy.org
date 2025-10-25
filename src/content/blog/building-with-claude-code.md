@@ -46,7 +46,7 @@ The development process worked well when it was collaborative. Claude Code opera
 
 But overall it needed to be reminded to take a step back and keep it simple. Test before declaring success. All the normal pitfalls in software development. There are other criteria for success than just the result.
 
-## The Playwright Dimension
+## Playwright
 
 From an agentic AI coding perspective, the process relied on Visual Studio Code, GitHub, and of course Claude. Part way through, I became more interested in Model Context Protocol (MCP). This is a standard to allow AI models to connect and interact with tools and data sources in a context-aware way. Simply put, it is a way to dramatically upskill the AI process. 
 
