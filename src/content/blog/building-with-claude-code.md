@@ -1,8 +1,8 @@
 ---
-title: "Building This Site with Claude Code: An introduction"
-description: "My experience using Claude Code to create a personal blog from scratch - and the difficult part, writing the content myself (without Claude's help)."
+title: 'Building This Site with Claude Code: An introduction'
+description: 'My experience using Claude Code to create a personal blog from scratch - and the difficult part, writing the content myself (without Claude''s help).'
 pubDate: 2025-10-09
-tags: ["ai", "development", "claude-code", "mcp", "astro"]
+tags: [ai, development, claude-code, mcp, astro]
 ---
 
 A confession. I built this site using Claude Code, then let it write the first post. The post was accurate, effective but instantly recognizable as AI. So I rewrote the content and this has been the most difficult part of the process of re-launching my website.
@@ -46,7 +46,7 @@ The development process worked well when it was collaborative. Claude Code opera
 
 But overall it needed to be reminded to take a step back and keep it simple. Test before declaring success. All the normal pitfalls in software development. There are other criteria for success than just the result.
 
-## The Playwright Magic
+## The Playwright Dimension
 
 From an agentic AI coding perspective, the process relied on Visual Studio Code, GitHub, and of course Claude. Part way through, I became more interested in Model Context Protocol (MCP). This is a standard to allow AI models to connect and interact with tools and data sources in a context-aware way. Simply put, it is a way to dramatically upskill the AI process. 
 
@@ -75,4 +75,3 @@ It's a bit like being a good dev lead. Perhaps with better prompt engineering an
 *The complete source code for this site is available on GitHub at [github.com/rjeans/jeansy.org](https://github.com/rjeans/jeansy.org).*
 
 ---
-
