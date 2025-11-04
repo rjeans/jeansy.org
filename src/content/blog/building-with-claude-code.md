@@ -2,23 +2,16 @@
 title: "Building This Site with Claude Code: An Introduction"
 description: "Hands-on lessons from using Claude Code to build a personal blog with Astro — exploring how AI coding assistants collaborate, where human judgment still matters, and how emerging standards like MCP reshape development."
 pubDate: 2025-10-09
+categories:
+  - AI Development
+  - Web Development
 tags:
-  - AI coding
   - Claude Code
-  - large language models
   - Astro
-  - web development
   - MCP
-  - agentic AI
   - software engineering
-  - automation
-  - human creativity
   - coding assistants
-  - GitHub
-  - Visual Studio Code
-  - static site generation
   - Tailwind CSS
-  - personal projects
 keywords:
   - Claude Code
   - building a blog with AI
