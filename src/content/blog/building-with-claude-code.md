@@ -1,8 +1,45 @@
 ---
-title: 'Building This Site with Claude Code: An introduction'
-description: 'My experience using Claude Code to create a personal blog from scratch - and the difficult part, writing the content myself (without Claude''s help).'
+title: "Building This Site with Claude Code: An Introduction"
+description: "Hands-on lessons from using Claude Code to build a personal blog with Astro — exploring how AI coding assistants collaborate, where human judgment still matters, and how emerging standards like MCP reshape development."
 pubDate: 2025-10-09
-tags: [ai, development, claude-code, mcp, astro]
+tags:
+  - AI coding
+  - Claude Code
+  - large language models
+  - Astro
+  - web development
+  - MCP
+  - agentic AI
+  - software engineering
+  - automation
+  - human creativity
+  - coding assistants
+  - GitHub
+  - Visual Studio Code
+  - static site generation
+  - Tailwind CSS
+  - personal projects
+keywords:
+  - Claude Code
+  - building a blog with AI
+  - Astro static site generator
+  - AI web development
+  - MCP protocol
+  - Model Context Protocol
+  - AI coding assistants
+  - collaborative software development
+  - AI developer workflow
+  - large language model coding
+  - human vs AI creativity
+  - VS Code AI integration
+  - Tailwind CSS and Astro
+  - GitHub project automation
+  - writing with AI support
+  - AI-powered web design
+  - reflective software engineering
+  - agentic AI tools
+  - AI development process
+  - lessons from Claude Code
 ---
 
 A confession. I built this site using Claude Code, then let it write the first post. The post was accurate, effective but instantly recognizable as AI. So I rewrote the content and this has been the most difficult part of the process of re-launching my website.
