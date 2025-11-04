@@ -1,6 +1,7 @@
 ---
 title: "Testing the Skills of AI: What a Jet Ski Taught Me About the Limits of AI Coding"
 description: "An exploration of how AI coding assistants perform on a classic Arduino microcontroller challenge — and what their limitations reveal about human intuition, learning, and problem-solving."
+pubDate: 2025-11-4
 tags: 
   - AI coding
   - large language models
