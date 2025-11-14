@@ -10,7 +10,7 @@ export async function GET(context) {
     title: 'jeansy.org',
     home_page_url: context.site,
     feed_url: `${context.site}feed.json`,
-    description: 'Personal website of an engineer and IT manager. Sharing thoughts on technology, management, and building things.',
+    description: 'Personal website, sharing thoughts on projects, ideas, and things that spark my curiosity. All opinions mine. For my professional life, please get in touch via LinkedIn.',
     icon: `${context.site}favicon.svg`,
     author: {
       name: 'Richard Jeans',
@@ -30,7 +30,7 @@ export async function GET(context) {
         name: 'Richard Jeans',
         url: 'https://jeansy.org'
       }],
-      tags: post.data.tags || [],
+      tags: [...(post.data.categories || []), ...(post.data.tags || [])],
       language: 'en-US'
     })),
   };

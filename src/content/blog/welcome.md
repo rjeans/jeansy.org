@@ -2,7 +2,11 @@
 title: "Welcome to jeansy.org"
 description: "First post on the new site - thoughts on engineering, software, and anything else I choose"
 pubDate: 2025-07-15
-tags: ["meta", "engineering", "blog"]
+categories:
+  - Meta
+tags:
+  - engineering
+  - blog
 ---
 
 # Welcome to jeansy.org

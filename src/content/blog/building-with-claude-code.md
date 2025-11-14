@@ -2,23 +2,16 @@
 title: "Building This Site with Claude Code: An Introduction"
 description: "Hands-on lessons from using Claude Code to build a personal blog with Astro — exploring how AI coding assistants collaborate, where human judgment still matters, and how emerging standards like MCP reshape development."
 pubDate: 2025-10-09
+categories:
+  - AI Development
+  - Web Development
 tags:
-  - AI coding
   - Claude Code
-  - large language models
   - Astro
-  - web development
   - MCP
-  - agentic AI
   - software engineering
-  - automation
-  - human creativity
   - coding assistants
-  - GitHub
-  - Visual Studio Code
-  - static site generation
   - Tailwind CSS
-  - personal projects
 keywords:
   - Claude Code
   - building a blog with AI
@@ -42,13 +35,13 @@ keywords:
   - lessons from Claude Code
 ---
 
-A confession. I built this site using Claude Code, then let it write the first post. The post was accurate, effective but instantly recognizable as AI. So I rewrote the content and this has been the most difficult part of the process of re-launching my website.
+A confession. I built this site using Claude Code, then let it write the first post. The post was accurate, effective but instantly recognizable as AI. So I rewrote the content and by far, this has been the most difficult part of the process of re-launching my website.
 
 I have had many different sites at [jeansy.org](https://jeansy.org) over the years. Wordpress, static HTML, Drupal. I suspect there were others. With all of them there was a common pattern, I loved playing with the hosting technology but hated writing anything. 
 
 The technology motivation is still there. Rebuilding the site was an opportunity to use Claude Code and understand AI coding hands-on better. Certainly this task should be right up the street of an AI coding assistant? The experience was a great one. 
 
-I learned something about development but more profound was having an insight into how things could change. I remain of the opinion that experience and judgment - the tacit sense of what good looks like - is crucial in this partnership. Perhaps that is hubris but I will keep an open mind.
+I learned something about development but more profound was having an insight into my motivation and skills for coding. I remain of the opinion that experience and judgment - the tacit sense of what good looks like - is crucial in this AI partnership. The AI is a brilliant tool and partner but needs firm steer to ensure there is a good result. 
 
 Second motivation was to start afresh and create some meaningful content. I have been journaling on and off over the last few years and have really enjoyed it. Don't worry, I don't plan to share my journal, but perhaps I could develop a style and some better skill at writing.
 
@@ -81,7 +74,7 @@ It took time to get used to being "hands off". Something that comes easier in a 
 
 The development process worked well when it was collaborative. Claude Code operates like a well informed, expert machine, but is overly confident and just a little too obliging. It definitely needs a strong hand to ensure that things remain well focused and architected. Of course it didn't just write code - it provided the structure of the project, created documentation, and suggested a development roadmap. 
 
-But overall it needed to be reminded to take a step back and keep it simple. Test before declaring success. All the normal pitfalls in software development. There are other criteria for success than just the result.
+But overall it needed to be reminded to take a step back and keep it simple. Test before declaring success.  Refactor for simplicity. All the normal pitfalls in software development. There are other criteria for success than just the result.
 
 ## Playwright
 

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  // Get all unique categories
+  const categories = new Set<string>();
+  posts.forEach(post => {
+    if (post.data.categories) {
+      post.data.categories.forEach(cat => categories.add(cat));
+    }
+  });
+
+  // Create a path for each category
+  return Array.from(categories).map(category => ({
+    params: { category: category.toLowerCase().replace(/\s+/g, '-') },
+    props: {
+      category,
+      posts: posts.filter(post =>
+        post.data.categories?.includes(category)
+      ).sort((a, b) =>
+        new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+      )
+    }
+  }));
+}
+
+const { category, posts } = Astro.props;
+---
+
+<BaseLayout title={`${category} - Blog - jeansy.org`} description={`All blog posts in the ${category} category.`}>
+  <div class="max-w-3xl mx-auto">
+    <div class="mb-8">
+      <a href="/blog" style="color: var(--link-color); text-decoration: none;" class="hover:underline text-sm">
+        ← Back to Blog
+      </a>
+    </div>
+
+    <h1 class="text-xl font-bold mb-2" style="color: var(--text-primary);">
+      {category}
+    </h1>
+    <p class="mb-8" style="color: var(--text-secondary);">
+      {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+    </p>
+
+    {posts.length === 0 ? (
+      <p class="text-center py-12" style="color: var(--text-secondary);">
+        No posts in this category yet.
+      </p>
+    ) : (
+      <div class="space-y-8">
+        {posts.map((post) => (
+          <article class="border-b pb-6" style="border-color: var(--border-color);">
+            <div class="text-sm mb-2" style="color: var(--text-muted);">
+              {new Date(post.data.pubDate).toLocaleDateString('en-GB', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+              })}
+            </div>
+            <h2 class="text-xl font-semibold mb-2">
+              <a href={`/blog/${post.slug}`} style="color: var(--link-color); text-decoration: none;" class="hover:underline">
+                {post.data.title}
+              </a>
+            </h2>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              {post.data.description}
+            </p>
+            {post.data.categories && post.data.categories.length > 0 && (
+              <div class="mt-3 flex gap-2">
+                {post.data.categories.map((cat) => (
+                  <a
+                    href={`/blog/category/${cat.toLowerCase().replace(/\s+/g, '-')}`}
+                    class="px-2 py-1 rounded text-xs hover:opacity-80"
+                    style="background-color: var(--tag-bg); color: var(--tag-text); text-decoration: none;"
+                  >
+                    {cat}
+                  </a>
+                ))}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>
