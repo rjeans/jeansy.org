@@ -1,7 +1,7 @@
 ## References
 
 1. Jeans, R. A. (1990). Solution of fluid–structure interaction problems using a coupled finite element and variational boundary element technique. *The Journal of the Acoustical Society of America, 88*(5), 2459–2466.  
-   [https://doi.org/10.1121/1.400086](https://doi.org/10.1121/1.400086)
+   [https://doi.org/10.1121/1.404042](https://doi.org/10.1121/1.404042)
 
 2. Jeans, R. A., & Mathews, I. C. (1991). Comparison of the collocation and variational procedures for providing numerical approximations to the hypersingular acoustic integral operator. *Proceedings of the Second Workshop on Reliability and Adaptive Methods in Computational Mechanics*, Cracow, Poland.
 
