@@ -17,6 +17,16 @@ const blogCollection = defineCollection({
   }),
 });
 
+const publicationsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    author: z.string().default('Richard Jeans'),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
+  publications: publicationsCollection,
 };
