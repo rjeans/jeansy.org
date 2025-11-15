@@ -20,7 +20,7 @@
 7. Jeans, R., & Mathews, I. C. (1992). Use of Lanczos vectors in fluid–structure interaction problems. *The Journal of the Acoustical Society of America, 92*(6), 3239–3248.  
    [https://doi.org/10.1121/1.404449](https://doi.org/10.1121/1.404449)
 
-8. Jeans, R., Mathews, I. C., Scapolla, T., Della Croce, L., Ainsworth, M., Oden, J. T., Babuika, I., Planck, L., Rodriguez, R., Johnson, C., et al. (1992). Cumulative contents. *Computer Methods in Applied Mechanics and Engineering, 101*, 489–491.  
+8. Jeans, R., Mathews, I. C., Scapolla, T., Della Croce, L., Ainsworth, M., Oden, J. T., et al. (1992). Cumulative contents. *Computer Methods in Applied Mechanics and Engineering, 101*, 489–491.  
    [https://doi.org/10.1016/0045-7825(92)90077-X](https://doi.org/10.1016/0045-7825(92)90077-X)
 
 9. Jeans, R., & Mathews, I. C. (1993). A unique coupled boundary element–finite element method for the elastoacoustic analysis of fluid-filled thin shells. *The Journal of the Acoustical Society of America, 94*(6), 3473–3479.  
