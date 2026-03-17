@@ -156,10 +156,10 @@ const socialImageURL = new URL(image, Astro.site);
   </head>
   <body>
     <header class="border-b" style="border-color: var(--border-color);">
-      <nav class="max-w-4xl mx-auto px-4 py-8">
-        <div class="flex justify-between items-center">
+      <nav class="max-w-4xl mx-auto px-4 py-6">
+        <div class="flex flex-wrap justify-between items-center" style="gap: 0.5rem 1rem;">
           <a href="/" class="text-xl font-bold" style="color: var(--text-primary); text-decoration: none;">jeansy.org</a>
-          <div class="flex items-center" style="gap: 1rem;">
+          <div class="flex items-center flex-wrap" style="gap: 0.5rem;">
             <a href="/blog" style="color: var(--text-secondary); text-decoration: none;" class="hover:underline">Blog</a>
             <a href="/publications" style="color: var(--text-secondary); text-decoration: none;" class="hover:underline">Publications</a>
             <a href="https://github.com/rjeans" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in new tab)" class="social-icon" style="color: var(--text-secondary); display: flex; align-items: center; padding: 0.5rem;">
