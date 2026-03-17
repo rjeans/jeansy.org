@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sync-inventory": "cp /Users/rich/Development/boxlabel/inventory.csv src/data/inventory.csv"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.13",

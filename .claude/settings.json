@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(npm show:*)",
-      "Bash(node -e \"const v=JSON.parse\\(require\\(''''fs''''\\).readFileSync\\(''''/dev/stdin'''',''''utf8''''\\)\\); console.log\\(v.filter\\(x=>x.startsWith\\(''''11''''\\) || x.startsWith\\(''''10''''\\) || x.startsWith\\(''''12''''\\)\\).slice\\(-5\\).join\\(''''\\\\n''''\\)\\)\")"
+      "Bash(node -e \"const v=JSON.parse\\(require\\(''''fs''''\\).readFileSync\\(''''/dev/stdin'''',''''utf8''''\\)\\); console.log\\(v.filter\\(x=>x.startsWith\\(''''11''''\\) || x.startsWith\\(''''10''''\\) || x.startsWith\\(''''12''''\\)\\).slice\\(-5\\).join\\(''''\\\\n''''\\)\\)\")",
+      "Read(//Users/rich/Obsidian/Relocation/**)"
     ],
     "additionalDirectories": [
       "/Users/rich/Development/jeansy.org/src/pages",

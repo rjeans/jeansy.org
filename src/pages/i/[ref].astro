@@ -1,13 +1,20 @@
 ---
-export const prerender = false;
-
+import { parseInventory } from '../../lib/inventory';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const { ref } = Astro.params;
+export function getStaticPaths() {
+  const items = parseInventory();
+  return Array.from(items.values()).map(item => ({
+    params: { ref: item.code },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
 ---
 
 <BaseLayout
-  title={`Item Reference ${ref} - jeansy.org`}
+  title={`${item.item} (${item.code}) - jeansy.org`}
   description="Relocation item reference page."
 >
   <div class="max-w-3xl mx-auto py-8">
@@ -18,8 +25,26 @@ const { ref } = Astro.params;
 
       <div class="mb-6 pb-6 border-b" style="border-color: var(--border-color);">
         <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">Reference</p>
-        <p class="text-3xl font-bold font-mono" style="color: var(--text-primary);">{ref}</p>
+        <p class="text-3xl font-bold font-mono" style="color: var(--text-primary);">{item.code}</p>
       </div>
+
+      <div class="mb-6 pb-6 border-b" style="border-color: var(--border-color);">
+        <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">Item</p>
+        <p class="text-xl font-semibold" style="color: var(--text-primary);">{item.item}</p>
+        {item.seq && <p class="text-sm mt-1" style="color: var(--text-secondary);">{item.seq}</p>}
+        {item.room && <p class="text-sm mt-1" style="color: var(--text-muted);">{item.room}</p>}
+      </div>
+
+      {(item.fragile || item.note) && (
+        <div class="mb-6 pb-6 border-b" style="border-color: var(--border-color);">
+          {item.fragile && (
+            <p class="text-sm font-semibold mb-1" style="color: var(--text-primary);">Fragile — handle with care</p>
+          )}
+          {item.note && (
+            <p class="text-sm" style="color: var(--text-secondary);">{item.note}</p>
+          )}
+        </div>
+      )}
 
       <div class="grid gap-6 mb-8" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
         <div>
