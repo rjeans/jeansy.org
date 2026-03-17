@@ -1,0 +1,49 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const { ref } = Astro.params;
+---
+
+<BaseLayout
+  title={`Item Reference ${ref} - jeansy.org`}
+  description="Relocation item reference page."
+>
+  <div class="max-w-3xl mx-auto py-8">
+    <div class="border rounded-lg p-8" style="border-color: var(--border-color); background-color: var(--bg-card);">
+
+      <h1 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">Relocation Item Reference</h1>
+      <p class="text-sm mb-8" style="color: var(--text-muted);">This QR code is attached to an item that is part of a household relocation.</p>
+
+      <div class="mb-6 pb-6 border-b" style="border-color: var(--border-color);">
+        <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">Reference</p>
+        <p class="text-3xl font-bold font-mono" style="color: var(--text-primary);">{ref}</p>
+      </div>
+
+      <div class="grid gap-6 mb-8" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div>
+          <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">Owner</p>
+          <p style="color: var(--text-primary);">Richard Jeans</p>
+          <a href="mailto:richard@jeansy.org" style="color: var(--link-color);" class="hover:underline text-sm">richard@jeansy.org</a>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">Moving Company</p>
+          <p style="color: var(--text-primary);">GB Liners</p>
+          <p class="text-sm" style="color: var(--text-secondary);">Ref: LO51399-1</p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">Destination</p>
+          <p style="color: var(--text-primary);">19 Deacon Road</p>
+          <p class="text-sm" style="color: var(--text-secondary);">Kingston upon Thames, KT2 6LT</p>
+        </div>
+      </div>
+
+      <p class="text-sm" style="color: var(--text-muted);">
+        If you have found this item or need to get in touch regarding this shipment, please contact
+        <a href="mailto:richard@jeansy.org" style="color: var(--link-color);" class="hover:underline">richard@jeansy.org</a>.
+      </p>
+
+    </div>
+  </div>
+</BaseLayout>

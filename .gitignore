@@ -3,6 +3,9 @@ dist/
 # generated types
 .astro/
 
+# wrangler local dev cache
+.wrangler/
+
 .playwright-mcp/
 
 # dependencies
