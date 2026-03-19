@@ -43,7 +43,8 @@ export function parseInventory(): Map<string, InventoryItem> {
     }
 
     const baseCode = codeCol;
-    const qty = parseInt(qtyStr) || 1;
+    const qtyParsed = parseInt(qtyStr);
+    const qty = isNaN(qtyParsed) ? 1 : qtyParsed;
     const printed = parseInt(printedStr) || 0;
 
     if (printed === 0) continue; // no labels exist yet
@@ -109,12 +110,13 @@ export function parseInventoryIndex(): Map<string, InventoryLineItem> {
       if (match) currentRoom = match[1];
       continue;
     }
+    const lineQtyParsed = parseInt(qtyStr);
     items.set(codeCol, {
       baseCode: codeCol,
       room: currentRoom,
       item: itemName,
       fragile: fragileCol === 'Yes',
-      qty: parseInt(qtyStr) || 1,
+      qty: isNaN(lineQtyParsed) ? 1 : lineQtyParsed,
       printed: parseInt(printedStr) || 0,
       notes: note || '',
     });

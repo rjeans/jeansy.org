@@ -8,7 +8,8 @@
       "Bash(npm run:*)",
       "Bash(chmod +x /Users/rich/Development/jeansy.org/scripts/sync-inventory.sh)",
       "Read(//Users/rich/Development/boxlabel/**)",
-      "Bash(python3 print_label.py LIV-19-2 --preview --out label_preview.png)"
+      "Bash(python3 print_label.py LIV-19-2 --preview --out label_preview.png)",
+      "Bash(python3 print_label.py LIV-16-1 --preview)"
     ],
     "additionalDirectories": [
       "/Users/rich/Development/jeansy.org/src/pages",

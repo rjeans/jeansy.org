@@ -83,9 +83,11 @@ const totalItems = allItems.size;
                       {item.notes && <span class="ml-2 text-xs" style="color: var(--text-muted);">— {item.notes}</span>}
                     </td>
                     <td class="py-2 align-top text-right w-28 text-xs" style="color: var(--text-muted);">
-                      {item.qty === 1
-                        ? (item.printed > 0 ? 'printed' : 'not printed')
-                        : `${item.printed} / ${item.qty}`}
+                      {item.qty === 0
+                        ? (item.printed > 0 ? `${item.printed} printed` : 'ad-hoc')
+                        : item.qty === 1
+                          ? (item.printed > 0 ? 'printed' : 'not printed')
+                          : `${item.printed} / ${item.qty}`}
                     </td>
                   </tr>
                 ))}
