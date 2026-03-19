@@ -1,0 +1,141 @@
+---
+import { parseInventory, parseInventoryIndex } from '../../../lib/inventory';
+import { getItemNote } from '../../../lib/item-notes';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  const allItems = parseInventoryIndex();   // all line items with printed count
+  const printed = parseInventory();         // only printed instances (with instance codes)
+  const paths = [];
+
+  for (const lineItem of allItems.values()) {
+    if (lineItem.printed === 0) continue;
+
+    if (lineItem.qty === 1) {
+      // Single item: landing page IS the detail page
+      paths.push({
+        params: { ref: lineItem.baseCode },
+        props: { type: 'single', lineItem },
+      });
+    } else {
+      // Group landing page (base code)
+      const instances = Array.from(printed.values())
+        .filter(i => i.baseCode === lineItem.baseCode && i.instance > 0);
+      paths.push({
+        params: { ref: lineItem.baseCode },
+        props: { type: 'group', lineItem, instances },
+      });
+
+      // Individual instance pages
+      for (const instance of instances) {
+        paths.push({
+          params: { ref: instance.code },
+          props: { type: 'instance', lineItem, instance },
+        });
+      }
+    }
+  }
+
+  return paths;
+}
+
+const { ref } = Astro.params;
+const { type, lineItem, instances, instance } = Astro.props;
+const note = getItemNote(ref);
+// Group landing: fragile is the line item default (some instances may override individually)
+// Single/instance: instance note takes priority over line item
+const isFragile = type === 'group'
+  ? lineItem.fragile
+  : (note?.fragile ?? lineItem.fragile);
+---
+
+<BaseLayout title={`Admin: ${ref}`} description="Private item detail.">
+  <div class="max-w-3xl mx-auto py-8">
+    <div class="border rounded-lg p-8" style="border-color: var(--border-color); background-color: var(--bg-card);">
+
+      {/* Header */}
+      <div class="flex items-start justify-between mb-6">
+        <div>
+          <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">Private — Admin</p>
+          <h1 class="text-2xl font-bold font-mono" style="color: var(--text-primary);">{ref}</h1>
+        </div>
+        <div class="flex gap-4 text-sm">
+          {type === 'instance' && (
+            <a href={`/admin/i/${lineItem.baseCode}`} class="hover:underline" style="color: var(--link-color);">
+              {lineItem.baseCode}
+            </a>
+          )}
+          {(type === 'single' || type === 'group') && (
+            <a href="/admin/inventory" class="hover:underline" style="color: var(--link-color);">Inventory</a>
+          )}
+          {type !== 'group' && (
+            <a href={`/i/${ref}`} class="hover:underline" style="color: var(--link-color);">Public page</a>
+          )}
+        </div>
+      </div>
+
+      {isFragile && (
+        <div class="mb-6 py-3 px-4 rounded text-center font-bold tracking-widest text-sm uppercase"
+             style="background-color: #dc2626; color: white; letter-spacing: 0.15em;">
+          Fragile &mdash; Handle With Care
+        </div>
+      )}
+
+      {/* Item summary */}
+      <div class="mb-6 pb-6 border-b" style="border-color: var(--border-color);">
+        <p class="text-xl font-semibold mb-1" style="color: var(--text-primary);">
+          {lineItem.item}
+          {type === 'instance' && <span style="color: var(--text-muted);"> — {instance.instance} of {lineItem.qty}</span>}
+        </p>
+        <p class="text-sm" style="color: var(--text-muted);">{lineItem.room}</p>
+        {lineItem.notes && <p class="text-sm mt-1" style="color: var(--text-secondary);">{lineItem.notes}</p>}
+        {type === 'group' && (
+          <p class="text-sm mt-1" style="color: var(--text-muted);">{lineItem.printed} of {lineItem.qty} printed</p>
+        )}
+      </div>
+
+      {/* Group landing: links to printed instances */}
+      {type === 'group' && (
+        <div class="mb-6">
+          <p class="text-xs uppercase tracking-widest mb-3" style="color: var(--text-muted);">Printed instances</p>
+          <div class="flex flex-wrap gap-2">
+            {instances.map((inst: any) => (
+              <a href={`/admin/i/${inst.code}`}
+                 class="font-mono text-sm px-3 py-1 rounded border hover:underline"
+                 style="border-color: var(--border-color); color: var(--link-color);">
+                {inst.code}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Private note content (single items and instances) */}
+      {(type === 'single' || type === 'instance') && (
+        <>
+          {note?.status && (
+            <div class="mb-4">
+              <span class="text-xs uppercase tracking-widest px-2 py-1 rounded"
+                    style="background-color: var(--border-color); color: var(--text-muted);">
+                {note.status}
+              </span>
+            </div>
+          )}
+          {note?.privateHtml ? (
+            <div class="prose prose-sm max-w-none mt-2" style="color: var(--text-primary);"
+                 set:html={note.privateHtml} />
+          ) : (
+            <p class="text-sm italic" style="color: var(--text-muted);">No private notes for this item.</p>
+          )}
+        </>
+      )}
+
+      {/* Group landing: master note private section if any */}
+      {type === 'group' && note?.privateHtml && (
+        <div class="mt-6 pt-6 border-t prose prose-sm max-w-none" style="border-color: var(--border-color); color: var(--text-primary);"
+             set:html={note.privateHtml} />
+      )}
+
+    </div>
+  </div>
+</BaseLayout>

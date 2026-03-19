@@ -9,7 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync-inventory": "cp /Users/rich/Development/boxlabel/inventory.csv src/data/inventory.csv"
+    "sync-inventory": "bash scripts/sync-inventory.sh"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.13",

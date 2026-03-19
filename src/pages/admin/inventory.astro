@@ -1,0 +1,104 @@
+---
+import { parseInventoryIndex } from '../../lib/inventory';
+import { getAllItemNoteCodes, getItemNote } from '../../lib/item-notes';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allItems = parseInventoryIndex();
+
+// Build a map of baseCode → set of instance codes that have fragile override
+// (i.e. instance note has fragile:true but line item does not)
+const fragileInstances = new Map<string, string[]>();
+for (const code of getAllItemNoteCodes()) {
+  const note = getItemNote(code);
+  if (!note?.fragile) continue;
+  // code may be a base code (single item) or an instance code (BED-08-1)
+  const baseMatch = code.match(/^([A-Z]+-\d+)-\d+$/);
+  const baseCode = baseMatch ? baseMatch[1] : code;
+  const lineItem = allItems.get(baseCode);
+  if (lineItem && !lineItem.fragile) {
+    // This is a per-instance override
+    if (!fragileInstances.has(baseCode)) fragileInstances.set(baseCode, []);
+    fragileInstances.get(baseCode)!.push(code);
+  }
+}
+
+const byRoom = new Map<string, typeof allItems extends Map<string, infer V> ? V[] : never>();
+for (const item of allItems.values()) {
+  if (!byRoom.has(item.room)) byRoom.set(item.room, []);
+  byRoom.get(item.room)!.push(item);
+}
+
+const totalLabels = Array.from(allItems.values()).reduce((n, i) => n + i.qty, 0);
+const totalPrinted = Array.from(allItems.values()).reduce((n, i) => n + i.printed, 0);
+const totalItems = allItems.size;
+---
+
+<BaseLayout title="Admin Inventory - jeansy.org" description="Full private inventory.">
+  <div class="max-w-4xl mx-auto py-8">
+    <div class="border rounded-lg p-8" style="border-color: var(--border-color); background-color: var(--bg-card);">
+
+      <div class="flex items-start justify-between mb-2">
+        <h1 class="text-2xl font-bold" style="color: var(--text-primary);">Full Inventory</h1>
+        <span class="text-xs uppercase tracking-widest px-2 py-1 rounded"
+              style="background-color: var(--border-color); color: var(--text-muted);">Private</span>
+      </div>
+      <p class="text-sm mb-1" style="color: var(--text-muted);">GB Liners &mdash; Ref: LO51399-1</p>
+      <p class="text-sm mb-8" style="color: var(--text-muted);">
+        {totalItems} line items &mdash; {totalPrinted}/{totalLabels} labels printed
+      </p>
+
+      {Array.from(byRoom.entries()).map(([room, roomItems]) => {
+        const roomPrinted = roomItems.reduce((n, i) => n + i.printed, 0);
+        const roomTotal = roomItems.reduce((n, i) => n + i.qty, 0);
+        return (
+          <div class="mb-8">
+            <div class="flex items-baseline justify-between mb-3 pb-2 border-b"
+                 style="border-color: var(--border-color);">
+              <h2 class="text-xs uppercase tracking-widest font-semibold" style="color: var(--text-muted);">
+                {room}
+              </h2>
+              <span class="text-xs" style="color: var(--text-muted);">{roomPrinted}/{roomTotal}</span>
+            </div>
+            <table class="w-full text-sm">
+              <tbody>
+                {roomItems.map(item => (
+                  <tr class="border-b" style="border-color: var(--border-color);">
+                    <td class="py-2 pr-4 font-mono text-xs w-24 align-top">
+                      {item.printed > 0 ? (
+                        <a href={`/admin/i/${item.baseCode}`} class="hover:underline" style="color: var(--link-color);">
+                          {item.baseCode}
+                        </a>
+                      ) : (
+                        <span style="color: var(--text-muted);">{item.baseCode}</span>
+                      )}
+                    </td>
+                    <td class="py-2 pr-4 align-top" style="color: var(--text-primary);">
+                      {item.item}
+                      {item.fragile && <span class="ml-2 text-xs" style="color: var(--text-muted);">[fragile]</span>}
+                      {!item.fragile && fragileInstances.has(item.baseCode) && (
+                        <span class="ml-2 text-xs" style="color: var(--text-muted);">
+                          [fragile: {fragileInstances.get(item.baseCode)!.join(', ')}]
+                        </span>
+                      )}
+                      {item.notes && <span class="ml-2 text-xs" style="color: var(--text-muted);">— {item.notes}</span>}
+                    </td>
+                    <td class="py-2 align-top text-right w-28 text-xs" style="color: var(--text-muted);">
+                      {item.qty === 1
+                        ? (item.printed > 0 ? 'printed' : 'not printed')
+                        : `${item.printed} / ${item.qty}`}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      })}
+
+      <p class="text-sm mt-6 pt-6 border-t" style="color: var(--text-muted); border-color: var(--border-color);">
+        <a href="/i/inventory" class="hover:underline" style="color: var(--link-color);">View public inventory</a>
+      </p>
+
+    </div>
+  </div>
+</BaseLayout>
