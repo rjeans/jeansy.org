@@ -1,6 +1,6 @@
 # Relocation Inventory — LO51399-1
 
-**8 of 115 labels printed** across 54 line items · last updated 2026-03-19
+**9 of 115 labels printed** across 54 line items · last updated 2026-03-21
 
 | Code | Item | Qty | Printed | Pack | Fragile | Note | Details | Link |
 |------|------|-----|---------|------|---------|------|---------|------|
@@ -23,10 +23,10 @@
 | BD2-02 | Chest / Trunk | 1 |  |  |  |  |  | [BD2-02](https://jeansy.org/i/BD2-02) |
 | BD2-03 | Plastic Crate | 4 |  | Yes |  |  |  | [BD2-03](https://jeansy.org/i/BD2-03) |
 | BD2-04 | Carton - Miscellaneous | 8 | 1 | Yes |  |  | [[BD2-04]] | [BD2-04](https://jeansy.org/i/BD2-04) |
-| **1st Floor - Hallway** &nbsp; *1/9* | | | | | | | | |
+| **1st Floor - Hallway** &nbsp; *2/9* | | | | | | | | |
 | HAL-01 | Mirror | 1 |  | Yes | Yes |  |  | [HAL-01](https://jeansy.org/i/HAL-01) |
 | HAL-02 | Picture / Mirror Small | 2 |  | Yes | Yes |  |  | [HAL-02](https://jeansy.org/i/HAL-02) |
-| HAL-03 | Carton - Books | 3 | 1 | Yes |  |  | [[HAL-03]] | [HAL-03](https://jeansy.org/i/HAL-03) |
+| HAL-03 | Carton - Books | 3 | 2 | Yes |  |  | [[HAL-03]] | [HAL-03](https://jeansy.org/i/HAL-03) |
 | HAL-04 | Carton - Miscellaneous | 3 |  | Yes |  |  |  | [HAL-04](https://jeansy.org/i/HAL-04) |
 | **1st Floor - Kitchen** &nbsp; *0/22* | | | | | | | | |
 | KIT-01 | Bench | 2 |  |  |  |  |  | [KIT-01](https://jeansy.org/i/KIT-01) |
