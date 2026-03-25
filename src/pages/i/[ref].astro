@@ -35,10 +35,10 @@ const isFragile = note?.fragile ?? item.fragile;
         <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">Item</p>
         <p class="text-xl font-semibold" style="color: var(--text-primary);">{item.item}</p>
         {item.instance > 0 && (
-          <p class="text-sm mt-1" style="color: var(--text-secondary);">{item.instance} of {item.total}</p>
+          <p class="text-sm mt-1" style="color: var(--text-secondary);">{item.instance} of {item.qty}</p>
         )}
-        {item.total > 1 && item.instance === 0 && (
-          <p class="text-sm mt-1" style="color: var(--text-secondary);">{item.total} in this group</p>
+        {item.qty > 1 && item.instance === 0 && (
+          <p class="text-sm mt-1" style="color: var(--text-secondary);">{item.qty} in this group</p>
         )}
         {item.room && <p class="text-sm mt-1" style="color: var(--text-muted);">{item.room}</p>}
       </div>

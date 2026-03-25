@@ -13,9 +13,8 @@ instances:
 tags:
   - moving
   - bedroom
-  - packed-by-customer
-created: 2026-03-18T18:36:46
-modified: 2026-03-18T18:36:46
+created: 2026-03-23T16:17:49
+modified: 2026-03-23T16:17:49
 ---
 
 ## Public
@@ -28,6 +27,8 @@ modified: 2026-03-18T18:36:46
 **Printed:** 1  
 
 ## Instances
+
+[**Print next label**](http://localhost:5151/go/print/BED-08)
 
 | # | Note | Status |
 |---|------|--------|

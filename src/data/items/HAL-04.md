@@ -1,16 +1,14 @@
 ---
 type: moving_item
-code: HAL-03
-url: https://jeansy.org/i/HAL-03
-item: Carton - Books
+code: HAL-04
+url: https://jeansy.org/i/HAL-04
+item: Carton - Miscellaneous
 room: 1st Floor - Hallway
 fragile: false
 status: packed
 qty_inventory: 3
-qty_printed: 2
-instances:
-  - HAL-03-1
-  - HAL-03-2
+qty_printed: 0
+instances: []
 tags:
   - moving
   - hallway
@@ -20,21 +18,17 @@ modified: 2026-03-23T16:17:49
 
 ## Public
 
-**Item:** Carton - Books  
+**Item:** Carton - Miscellaneous  
 **Room:** 1st Floor - Hallway  
 **Fragile:** No  
 **Reference:** LO51399-1  
 **Inventory qty:** 3  
-**Printed:** 2  
+**Printed:** 0  
 
 ## Instances
 
-[**Print next label**](http://localhost:5151/go/print/HAL-03)
+[**Print next label**](http://localhost:5151/go/print/HAL-04)
 
-| # | Note | Status |
-|---|------|--------|
-| 1 | [[HAL-03-1]] | packed |
-| 2 | [[HAL-03-2]] | packed |
 
 ## Private
 

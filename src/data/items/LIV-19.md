@@ -16,9 +16,8 @@ instances:
 tags:
   - moving
   - living-room
-  - packed-by-customer
-created: 2026-03-19T15:25:08
-modified: 2026-03-19T15:25:08
+created: 2026-03-23T16:17:49
+modified: 2026-03-23T16:17:49
 ---
 
 ## Public
@@ -31,6 +30,8 @@ modified: 2026-03-19T15:25:08
 **Printed:** 4  
 
 ## Instances
+
+[**Print next label**](http://localhost:5151/go/print/LIV-19)
 
 | # | Note | Status |
 |---|------|--------|

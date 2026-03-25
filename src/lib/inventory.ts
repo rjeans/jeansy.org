@@ -13,9 +13,15 @@ export interface InventoryItem {
   notes: string;
 }
 
-// Columns: Code | Item | Qty | Printed | Pack | Fragile | Note | Details | Link
+// Columns: Code | Item | Qty | Printed | Pack | Fragile | Note | Link
 function parseRow(line: string): string[] {
   return line.split('|').map(s => s.trim()).slice(1, -1);
+}
+
+// Strip Obsidian wiki-link syntax: [[CODE]] -> CODE
+function stripWikiLink(s: string): string {
+  const m = s.match(/^\[\[(.+?)\]\]$/);
+  return m ? m[1] : s;
 }
 
 export function parseInventory(): Map<string, InventoryItem> {
@@ -42,7 +48,7 @@ export function parseInventory(): Map<string, InventoryItem> {
       continue;
     }
 
-    const baseCode = codeCol;
+    const baseCode = stripWikiLink(codeCol);
     const qtyParsed = parseInt(qtyStr);
     const qty = isNaN(qtyParsed) ? 1 : qtyParsed;
     const printed = parseInt(printedStr) || 0;
@@ -110,9 +116,10 @@ export function parseInventoryIndex(): Map<string, InventoryLineItem> {
       if (match) currentRoom = match[1];
       continue;
     }
+    const baseCode = stripWikiLink(codeCol);
     const lineQtyParsed = parseInt(qtyStr);
-    items.set(codeCol, {
-      baseCode: codeCol,
+    items.set(baseCode, {
+      baseCode,
       room: currentRoom,
       item: itemName,
       fragile: fragileCol === 'Yes',
