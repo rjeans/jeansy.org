@@ -64,13 +64,9 @@ const totalItems = allItems.size;
                 {roomItems.map(item => (
                   <tr class="border-b" style="border-color: var(--border-color);">
                     <td class="py-2 pr-4 font-mono text-xs w-24 align-top">
-                      {item.printed > 0 ? (
-                        <a href={`/admin/i/${item.baseCode}`} class="hover:underline" style="color: var(--link-color);">
-                          {item.baseCode}
-                        </a>
-                      ) : (
-                        <span style="color: var(--text-muted);">{item.baseCode}</span>
-                      )}
+                      <a href={`/admin/i/${item.baseCode}`} class="hover:underline" style="color: var(--link-color);">
+                        {item.baseCode}
+                      </a>
                     </td>
                     <td class="py-2 pr-4 align-top" style="color: var(--text-primary);">
                       {item.item}
