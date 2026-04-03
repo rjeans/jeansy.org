@@ -40,6 +40,25 @@ A minimalistic personal website for an engineer who is also a professional IT ma
 - Portfolio/work showcase (future)
 - Contact information
 
+## Inventory Sync
+
+The site includes an inventory management system with data sourced from an Obsidian vault.
+
+### Sync Procedure
+1. Run `bash scripts/sync-inventory.sh` to copy inventory data from the Obsidian vault (`~/Obsidian/Relocation`) into the project:
+   - `Inventory.md` -> `src/data/inventory.md` (master inventory table)
+   - `Items/*.md` -> `src/data/items/` (individual item notes)
+   - Images (jpg, jpeg, png, gif, webp) -> `public/admin/images/` (referenced images)
+2. Review changes with `git status`
+3. Stage and commit all synced files
+4. Push to trigger deployment
+
+### Data Flow
+- Source of truth: Obsidian vault at `~/Obsidian/Relocation`
+- The sync script is at `scripts/sync-inventory.sh`
+- Inventory data is parsed by `src/lib/inventory.ts`
+- Admin pages are generated at `/admin/inventory`
+
 ## Development Rules
 - Use only standard ASCII characters in markdown files
 - No fancy Unicode symbols or emojis in documentation

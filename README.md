@@ -96,6 +96,23 @@ imageAlt: "Image description"   # Optional: image alt text
 - `image` (optional): Custom OG image path (defaults to site default)
 - `imageAlt` (optional): Alt text for custom image
 
+## Inventory Sync
+
+The site includes an inventory tracking system with data sourced from an Obsidian vault.
+
+To sync inventory data:
+
+```bash
+bash scripts/sync-inventory.sh
+```
+
+This copies from `~/Obsidian/Relocation` into the project:
+- **Master table**: `Inventory.md` -> `src/data/inventory.md`
+- **Item notes**: `Items/*.md` -> `src/data/items/`
+- **Images**: jpg/png/gif/webp -> `public/admin/images/`
+
+After syncing, commit and push to deploy the updated inventory.
+
 ## Deployment
 
 This site is deployed on **Cloudflare Pages** with automatic deployments from the main branch.
