@@ -7,14 +7,16 @@ room: 1st Floor - Living Room
 fragile: false
 status: packed
 qty_inventory: 3
-qty_printed: 1
+qty_printed: 3
 instances:
   - LIV-08-1
+  - LIV-08-2
+  - LIV-08-3
 tags:
   - moving
   - living-room
-created: 2026-04-03T10:34:56
-modified: 2026-04-03T10:34:56
+created: 2026-04-09T22:24:59
+modified: 2026-04-09T22:24:59
 ---
 
 ## Public
@@ -24,7 +26,7 @@ modified: 2026-04-03T10:34:56
 **Fragile:** No  
 **Reference:** LO51399-1  
 **Inventory qty:** 3  
-**Printed:** 1  
+**Printed:** 3  
 
 ## Instances
 
@@ -33,6 +35,8 @@ modified: 2026-04-03T10:34:56
 | # | Note | Status |
 |---|------|--------|
 | 1 | [[LIV-08-1]] | packed |
+| 2 | [[LIV-08-2]] | packed |
+| 3 | [[LIV-08-3]] | packed |
 
 ## Private
 

@@ -7,13 +7,14 @@ room: 1st Floor - Balcony
 fragile: false
 status: packed
 qty_inventory: 1
-qty_printed: 0
-instances: []
+qty_printed: 1
+instances:
+  - BAL-01-1
 tags:
   - moving
   - balcony
-created: 2026-03-23T16:17:49
-modified: 2026-03-23T16:17:49
+created: 2026-04-09T21:48:08
+modified: 2026-04-09T21:48:08
 ---
 
 ## Public
@@ -23,12 +24,15 @@ modified: 2026-03-23T16:17:49
 **Fragile:** No  
 **Reference:** LO51399-1  
 **Inventory qty:** 1  
-**Printed:** 0  
+**Printed:** 1  
 
 ## Instances
 
 [**Print next label**](http://localhost:5151/go/print/BAL-01)
 
+| # | Note | Status |
+|---|------|--------|
+| 1 | [[BAL-01-1]] | packed |
 
 ## Private
 

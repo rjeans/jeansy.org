@@ -7,18 +7,19 @@ room: 1st Floor - Bedroom
 fragile: false
 status: packed
 qty_inventory: 6
-qty_printed: 5
+qty_printed: 6
 instances:
   - BED-08-1
   - BED-08-2
   - BED-08-3
   - BED-08-4
   - BED-08-5
+  - BED-08-6
 tags:
   - moving
   - bedroom
-created: 2026-04-03T12:35:39
-modified: 2026-04-03T12:35:39
+created: 2026-04-06T11:39:00
+modified: 2026-04-06T11:39:00
 ---
 
 ## Public
@@ -28,7 +29,7 @@ modified: 2026-04-03T12:35:39
 **Fragile:** No  
 **Reference:** LO51399-1  
 **Inventory qty:** 6  
-**Printed:** 5  
+**Printed:** 6  
 
 ## Instances
 
@@ -41,6 +42,7 @@ modified: 2026-04-03T12:35:39
 | 3 | [[BED-08-3]] | packed |
 | 4 | [[BED-08-4]] | packed |
 | 5 | [[BED-08-5]] | packed |
+| 6 | [[BED-08-6]] | packed |
 
 ## Private
 

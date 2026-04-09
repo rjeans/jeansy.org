@@ -9,28 +9,20 @@ export function getStaticPaths() {
   const paths = [];
 
   for (const lineItem of allItems.values()) {
-    if (lineItem.qty <= 1) {
-      // Single item: landing page IS the detail page
-      paths.push({
-        params: { ref: lineItem.baseCode },
-        props: { type: 'single', lineItem },
-      });
-    } else {
-      // Group landing page (base code)
-      const instances = Array.from(printed.values())
-        .filter(i => i.baseCode === lineItem.baseCode && i.instance > 0);
-      paths.push({
-        params: { ref: lineItem.baseCode },
-        props: { type: 'group', lineItem, instances },
-      });
+    // Group landing page (base code)
+    const instances = Array.from(printed.values())
+      .filter(i => i.baseCode === lineItem.baseCode && i.instance > 0);
+    paths.push({
+      params: { ref: lineItem.baseCode },
+      props: { type: 'group', lineItem, instances },
+    });
 
-      // Individual instance pages
-      for (const instance of instances) {
-        paths.push({
-          params: { ref: instance.code },
-          props: { type: 'instance', lineItem, instance },
-        });
-      }
+    // Individual instance pages
+    for (const instance of instances) {
+      paths.push({
+        params: { ref: instance.code },
+        props: { type: 'instance', lineItem, instance },
+      });
     }
   }
 
@@ -41,7 +33,7 @@ const { ref } = Astro.params;
 const { type, lineItem, instances, instance } = Astro.props;
 const note = getItemNote(ref);
 // Group landing: fragile is the line item default (some instances may override individually)
-// Single/instance: instance note takes priority over line item
+// Instance: instance note takes priority over line item
 const isFragile = type === 'group'
   ? lineItem.fragile
   : (note?.fragile ?? lineItem.fragile);
@@ -63,7 +55,7 @@ const isFragile = type === 'group'
               {lineItem.baseCode}
             </a>
           )}
-          {(type === 'single' || type === 'group') && (
+          {type === 'group' && (
             <a href="/admin/inventory" class="hover:underline" style="color: var(--link-color);">Inventory</a>
           )}
           {type !== 'group' && lineItem.printed > 0 && (
@@ -128,6 +120,15 @@ const isFragile = type === 'group'
       ) : (
         <p class="text-sm italic" style="color: var(--text-muted);">No private notes for this item.</p>
       )}
+
+      {/* Obsidian link for editing */}
+      <div class="mt-6 pt-4 border-t" style="border-color: var(--border-color);">
+        <a href={`obsidian://open?vault=Relocation&file=${encodeURIComponent(`Items/${ref}`)}`}
+           class="inline-flex items-center gap-2 text-sm px-3 py-2 rounded border hover:underline"
+           style="border-color: var(--border-color); color: var(--link-color);">
+          Open in Obsidian to add photos
+        </a>
+      </div>
 
     </div>
   </div>

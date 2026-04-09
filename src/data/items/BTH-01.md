@@ -7,13 +7,14 @@ room: 1st Floor - Bathroom
 fragile: false
 status: packed
 qty_inventory: 1
-qty_printed: 0
-instances: []
+qty_printed: 1
+instances:
+  - BTH-01-1
 tags:
   - moving
   - bathroom
-created: 2026-03-23T16:17:49
-modified: 2026-03-23T16:17:49
+created: 2026-04-09T21:51:07
+modified: 2026-04-09T21:51:07
 ---
 
 ## Public
@@ -23,12 +24,15 @@ modified: 2026-03-23T16:17:49
 **Fragile:** No  
 **Reference:** LO51399-1  
 **Inventory qty:** 1  
-**Printed:** 0  
+**Printed:** 1  
 
 ## Instances
 
 [**Print next label**](http://localhost:5151/go/print/BTH-01)
 
+| # | Note | Status |
+|---|------|--------|
+| 1 | [[BTH-01-1]] | packed |
 
 ## Private
 
