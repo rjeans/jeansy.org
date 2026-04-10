@@ -7,15 +7,17 @@ room: 1st Floor - Kitchen
 fragile: true
 status: packed
 qty_inventory: 3
-qty_printed: 1
+qty_printed: 3
 instances:
   - KIT-06-1
+  - KIT-06-2
+  - KIT-06-3
 tags:
   - moving
   - kitchen
   - fragile
-created: 2026-04-03T12:04:15
-modified: 2026-04-03T12:04:15
+created: 2026-04-10T06:57:31
+modified: 2026-04-10T06:57:31
 ---
 
 ## Public
@@ -25,7 +27,7 @@ modified: 2026-04-03T12:04:15
 **Fragile:** Yes  
 **Reference:** LO51399-1  
 **Inventory qty:** 3  
-**Printed:** 1  
+**Printed:** 3  
 
 ## Instances
 
@@ -34,6 +36,8 @@ modified: 2026-04-03T12:04:15
 | # | Note | Status |
 |---|------|--------|
 | 1 | [[KIT-06-1]] | packed |
+| 2 | [[KIT-06-2]] | packed |
+| 3 | [[KIT-06-3]] | packed |
 
 ## Private
 

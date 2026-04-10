@@ -7,13 +7,14 @@ room: Basement - Basement
 fragile: false
 status: packed
 qty_inventory: 1
-qty_printed: 0
-instances: []
+qty_printed: 1
+instances:
+  - BAS-03-1
 tags:
   - moving
   - basement
-created: 2026-03-23T16:17:49
-modified: 2026-03-23T16:17:49
+created: 2026-04-10T11:13:08
+modified: 2026-04-10T11:13:08
 ---
 
 ## Public
@@ -28,6 +29,7 @@ modified: 2026-03-23T16:17:49
 ## Instances
 
 [**Print next label**](http://localhost:5151/go/print/BAS-03)
+
 
 
 ## Private

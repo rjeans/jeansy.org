@@ -45,4 +45,6 @@ modified: 2026-04-09T22:09:07
 ### Description
 
 ### Photos
+![[Inventory - 26.jpeg]]
+![[Inventory - 27.jpeg]]
 

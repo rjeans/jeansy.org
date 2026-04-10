@@ -7,13 +7,15 @@ room: 1st Floor - Living Room
 fragile: false
 status: packed
 qty_inventory: 2
-qty_printed: 0
-instances: []
+qty_printed: 2
+instances:
+  - LIV-06-1
+  - LIV-06-2
 tags:
   - moving
   - living-room
-created: 2026-03-23T16:17:49
-modified: 2026-03-23T16:17:49
+created: 2026-04-10T11:12:18
+modified: 2026-04-10T11:12:18
 ---
 
 ## Public
@@ -23,12 +25,16 @@ modified: 2026-03-23T16:17:49
 **Fragile:** No  
 **Reference:** LO51399-1  
 **Inventory qty:** 2  
-**Printed:** 0  
+**Printed:** 2  
 
 ## Instances
 
 [**Print next label**](http://localhost:5151/go/print/LIV-06)
 
+| # | Note | Status |
+|---|------|--------|
+| 1 | [[LIV-06-1]] | packed |
+| 2 | [[LIV-06-2]] | packed |
 
 ## Private
 

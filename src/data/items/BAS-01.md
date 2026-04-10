@@ -7,13 +7,14 @@ room: Basement - Basement
 fragile: false
 status: packed
 qty_inventory: 1
-qty_printed: 0
-instances: []
+qty_printed: 1
+instances:
+  - BAS-01-1
 tags:
   - moving
   - basement
-created: 2026-03-23T16:17:49
-modified: 2026-03-23T16:17:49
+created: 2026-04-10T11:12:34
+modified: 2026-04-10T11:12:34
 ---
 
 ## Public
@@ -23,12 +24,15 @@ modified: 2026-03-23T16:17:49
 **Fragile:** No  
 **Reference:** LO51399-1  
 **Inventory qty:** 1  
-**Printed:** 0  
+**Printed:** 1  
 
 ## Instances
 
 [**Print next label**](http://localhost:5151/go/print/BAS-01)
 
+| # | Note | Status |
+|---|------|--------|
+| 1 | [[BAS-01-1]] | packed |
 
 ## Private
 

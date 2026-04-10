@@ -8,13 +8,14 @@ fragile: true
 status: packed
 qty_inventory: 1
 qty_printed: 1
-instances: []
+instances:
+  - KIT-08-1
 tags:
   - moving
   - kitchen
   - fragile
-created: 2026-03-23T16:17:49
-modified: 2026-03-23T16:17:49
+created: 2026-04-10T07:01:13
+modified: 2026-04-10T07:01:13
 ---
 
 ## Public
@@ -24,17 +25,19 @@ modified: 2026-03-23T16:17:49
 **Fragile:** Yes  
 **Reference:** LO51399-1  
 **Inventory qty:** 1  
-**Printed:** 1 
+**Printed:** 1  
 
 ## Instances
 
 [**Print next label**](http://localhost:5151/go/print/KIT-08)
 
+| # | Note | Status |
+|---|------|--------|
+| 1 | [[KIT-08-1]] | packed |
 
 ## Private
 
 ### Description
-Louis Poulsen PH 5
 
 ### Photos
-![[image 13.jpg]]
+

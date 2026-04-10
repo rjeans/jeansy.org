@@ -6,15 +6,15 @@ item: Bike, Adult
 room: 1st Floor - Living Room
 fragile: false
 status: packed
-notes: "Bike box required"
+notes: Bike box required
 qty_inventory: 1
-qty_printed: 0
-instances: []
+qty_printed: 1
+instances:
 tags:
   - moving
   - living-room
-created: 2026-03-23T16:17:49
-modified: 2026-03-23T16:17:49
+created: 2026-04-10T11:11:40
+modified: 2026-04-10T11:11:40
 ---
 
 ## Public
@@ -24,11 +24,13 @@ modified: 2026-03-23T16:17:49
 **Fragile:** No  
 **Reference:** LO51399-1  
 **Inventory qty:** 1  
-**Printed:** 0  
+**Printed:** 0
 
 ## Instances
 
 [**Print next label**](http://localhost:5151/go/print/LIV-02)
+
+
 
 
 ## Private
