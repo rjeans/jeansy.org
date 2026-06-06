@@ -1,0 +1,237 @@
+import { readFileSync, existsSync } from 'fs';
+import { resolve } from 'path';
+
+const DATA_DIR = './src/data/wc2026';
+
+const PLAYERS = ['Richard', 'Nichola', 'Emily', 'Henry', 'Sophie', 'Tega', 'Pete', 'Ella'];
+
+const GROUP_WIN = 3;
+const GROUP_DRAW = 1;
+
+export const STAGE_ORDER = ['GROUP', 'R32', 'R16', 'QF', 'SF', 'FINAL', 'CHAMPION'] as const;
+export type Stage = (typeof STAGE_ORDER)[number];
+
+const STAGE_LABEL: Record<Stage, string> = {
+  GROUP: 'Group',
+  R32: 'Round of 32',
+  R16: 'Round of 16',
+  QF: 'Quarter-final',
+  SF: 'Semi-final',
+  FINAL: 'Final',
+  CHAMPION: 'Champion',
+};
+
+export interface Team {
+  group: string;
+  group_rank: number;
+  country: string;
+  fifa_rank: number;
+}
+
+export interface TeamRow extends Team {
+  owner: string | null;
+  tier: number;
+  gw: number;
+  gd: number;
+  gl: number;
+  gf: number;
+  ga: number;
+  groupPoints: number;
+  stage: Stage;
+}
+
+export interface PlayerRow {
+  rank: number;
+  name: string;
+  points: number;
+  gf: number;
+  gd: number;
+  best: Stage;
+  teams: TeamRow[]; // sorted by tier ascending; empty pre-draw
+}
+
+export type TournamentStatus =
+  | 'pre-draw'
+  | 'pre-tournament'
+  | 'in-progress'
+  | 'complete';
+
+export interface TournamentData {
+  status: TournamentStatus;
+  teams: TeamRow[];
+  players: PlayerRow[];
+}
+
+interface StandingsRow {
+  rank: number;
+  person: string;
+  points: number;
+  goals_for: number;
+  goal_diff: number;
+  best_run: Stage;
+}
+
+function parseCsv(path: string): Record<string, string>[] {
+  const text = readFileSync(path, 'utf-8');
+  const lines = text.split('\n').filter((l) => l.trim().length > 0);
+  const header = lines[0].split(',').map((h) => h.trim());
+  return lines.slice(1).map((line) => {
+    const cells = line.split(',').map((c) => c.trim());
+    const row: Record<string, string> = {};
+    header.forEach((h, i) => {
+      row[h] = cells[i] ?? '';
+    });
+    return row;
+  });
+}
+
+function loadTeams(): Team[] {
+  return parseCsv(resolve(DATA_DIR, 'teams.csv')).map((r) => ({
+    group: r.group,
+    group_rank: parseInt(r.group_rank),
+    country: r.country,
+    fifa_rank: parseInt(r.fifa_rank),
+  }));
+}
+
+function loadAllocation(): Map<string, string> | null {
+  const path = resolve(DATA_DIR, 'allocation.csv');
+  if (!existsSync(path)) return null;
+  const m = new Map<string, string>();
+  for (const r of parseCsv(path)) m.set(r.country, r.person);
+  return m;
+}
+
+interface ResultRow {
+  gw: number;
+  gd: number;
+  gl: number;
+  gf: number;
+  ga: number;
+  stage: Stage;
+}
+
+function loadResults(): Map<string, ResultRow> | null {
+  const path = resolve(DATA_DIR, 'results.csv');
+  if (!existsSync(path)) return null;
+  const m = new Map<string, ResultRow>();
+  for (const r of parseCsv(path)) {
+    const stage = STAGE_ORDER.includes(r.stage as Stage)
+      ? (r.stage as Stage)
+      : 'GROUP';
+    m.set(r.country, {
+      gw: parseInt(r.gw) || 0,
+      gd: parseInt(r.gd) || 0,
+      gl: parseInt(r.gl) || 0,
+      gf: parseInt(r.gf) || 0,
+      ga: parseInt(r.ga) || 0,
+      stage,
+    });
+  }
+  return m;
+}
+
+function loadStandings(): StandingsRow[] | null {
+  const path = resolve(DATA_DIR, 'standings.csv');
+  if (!existsSync(path)) return null;
+  return parseCsv(path).map((r) => ({
+    rank: parseInt(r.rank),
+    person: r.person,
+    points: parseInt(r.points),
+    goals_for: parseInt(r.goals_for),
+    goal_diff: parseInt(r.goal_diff),
+    best_run: r.best_run as Stage,
+  }));
+}
+
+export function getTournamentData(): TournamentData {
+  const teams = loadTeams();
+  const allocation = loadAllocation();
+  const results = loadResults();
+  const standings = loadStandings();
+
+  const teamsPlayed =
+    results !== null &&
+    Array.from(results.values()).some(
+      (r) => r.gw + r.gd + r.gl > 0 || r.stage !== 'GROUP',
+    );
+  const champion =
+    results !== null &&
+    Array.from(results.values()).some((r) => r.stage === 'CHAMPION');
+
+  let status: TournamentStatus = 'pre-draw';
+  if (allocation) status = 'pre-tournament';
+  if (allocation && teamsPlayed) status = 'in-progress';
+  if (allocation && champion) status = 'complete';
+
+  // Tier = which of six strength bands a team falls in (1 = strongest 8).
+  const tierByCountry = new Map<string, number>();
+  [...teams]
+    .sort((a, b) => a.fifa_rank - b.fifa_rank)
+    .forEach((t, i) => tierByCountry.set(t.country, Math.floor(i / 8) + 1));
+
+  const teamRows: TeamRow[] = teams.map((t) => {
+    const result = results?.get(t.country);
+    const stage: Stage = result?.stage ?? 'GROUP';
+    const gw = result?.gw ?? 0;
+    const gd = result?.gd ?? 0;
+    const gl = result?.gl ?? 0;
+    const gf = result?.gf ?? 0;
+    const ga = result?.ga ?? 0;
+    return {
+      ...t,
+      owner: allocation?.get(t.country) ?? null,
+      tier: tierByCountry.get(t.country) ?? 0,
+      gw,
+      gd,
+      gl,
+      gf,
+      ga,
+      groupPoints: gw * GROUP_WIN + gd * GROUP_DRAW,
+      stage,
+    };
+  });
+  teamRows.sort((a, b) => a.fifa_rank - b.fifa_rank);
+
+  const teamsByOwner = new Map<string, TeamRow[]>();
+  for (const p of PLAYERS) teamsByOwner.set(p, []);
+  for (const t of teamRows) {
+    if (t.owner) teamsByOwner.get(t.owner)?.push(t);
+  }
+  for (const list of teamsByOwner.values()) list.sort((a, b) => a.tier - b.tier);
+
+  const standingsByName = new Map(standings?.map((s) => [s.person, s]) ?? []);
+  const playerRows: PlayerRow[] = PLAYERS.map((name) => {
+    const s = standingsByName.get(name);
+    return {
+      rank: 0,
+      name,
+      points: s?.points ?? 0,
+      gf: s?.goals_for ?? 0,
+      gd: s?.goal_diff ?? 0,
+      best: (s?.best_run ?? 'GROUP') as Stage,
+      teams: teamsByOwner.get(name) ?? [],
+    };
+  });
+
+  if (status === 'in-progress' || status === 'complete') {
+    playerRows.sort((a, b) => {
+      if (b.points !== a.points) return b.points - a.points;
+      if (b.gf !== a.gf) return b.gf - a.gf;
+      if (b.gd !== a.gd) return b.gd - a.gd;
+      return a.name.localeCompare(b.name);
+    });
+  } else {
+    // Pre-draw / pre-tournament: everyone is tied at zero, so sort alphabetically.
+    playerRows.sort((a, b) => a.name.localeCompare(b.name));
+  }
+  playerRows.forEach((p, i) => {
+    p.rank = i + 1;
+  });
+
+  return { status, teams: teamRows, players: playerRows };
+}
+
+export function stageLabel(s: Stage): string {
+  return STAGE_LABEL[s];
+}

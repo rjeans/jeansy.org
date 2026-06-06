@@ -8,6 +8,7 @@ export default defineConfig({
   adapter: cloudflare(),
   integrations: [tailwind(), mdx(), sitemap({
     lastmod: new Date(),
+    filter: (page) => !page.includes('/wc2026'),
   })],
   site: 'https://jeansy.org',
   markdown: {
