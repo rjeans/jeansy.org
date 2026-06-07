@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync, existsSync, statSync } from 'fs';
 import { resolve } from 'path';
 
 const DATA_DIR = './src/data/wc2026';
@@ -50,6 +50,16 @@ export interface PlayerRow {
   teams: TeamRow[]; // sorted by tier ascending; empty pre-draw
 }
 
+export interface Match {
+  date: string; // ISO date, e.g. 2026-06-11
+  stage: Stage;
+  group: string; // group letter for group games; '' for knockouts
+  home: string;
+  away: string;
+  homeScore: number | null; // null = not yet played
+  awayScore: number | null;
+}
+
 export type TournamentStatus =
   | 'pre-draw'
   | 'pre-tournament'
@@ -60,6 +70,8 @@ export interface TournamentData {
   status: TournamentStatus;
   teams: TeamRow[];
   players: PlayerRow[];
+  matches: Match[]; // chronological; empty until a matches.csv is synced
+  updatedAt: number; // epoch ms of the most recent data file
 }
 
 interface StandingsRow {
@@ -144,11 +156,42 @@ function loadStandings(): StandingsRow[] | null {
   }));
 }
 
+function loadMatches(): Match[] {
+  const path = resolve(DATA_DIR, 'matches.csv');
+  if (!existsSync(path)) return [];
+  const toScore = (v: string): number | null => {
+    if (v === undefined || v.trim() === '') return null;
+    const n = parseInt(v);
+    return Number.isNaN(n) ? null : n;
+  };
+  return parseCsv(path).map((r) => ({
+    date: r.date ?? '',
+    stage: STAGE_ORDER.includes(r.stage as Stage) ? (r.stage as Stage) : 'GROUP',
+    group: r.group ?? '',
+    home: r.home,
+    away: r.away,
+    homeScore: toScore(r.home_score),
+    awayScore: toScore(r.away_score),
+  }));
+}
+
+// Most recent modification time across the synced data files, so the page can
+// show an honest "last updated" stamp.
+function dataUpdatedAt(): number {
+  let latest = 0;
+  for (const name of ['teams.csv', 'allocation.csv', 'results.csv', 'standings.csv', 'matches.csv']) {
+    const path = resolve(DATA_DIR, name);
+    if (existsSync(path)) latest = Math.max(latest, statSync(path).mtimeMs);
+  }
+  return latest;
+}
+
 export function getTournamentData(): TournamentData {
   const teams = loadTeams();
   const allocation = loadAllocation();
   const results = loadResults();
   const standings = loadStandings();
+  const matches = loadMatches();
 
   const teamsPlayed =
     results !== null &&
@@ -229,7 +272,7 @@ export function getTournamentData(): TournamentData {
     p.rank = i + 1;
   });
 
-  return { status, teams: teamRows, players: playerRows };
+  return { status, teams: teamRows, players: playerRows, matches, updatedAt: dataUpdatedAt() };
 }
 
 export function stageLabel(s: Stage): string {

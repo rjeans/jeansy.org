@@ -1,194 +1,76 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getTournamentData, stageLabel } from '../../lib/wc2026';
+import Layout from '../../layouts/WC2026Layout.astro';
+import { getTournamentData } from '../../lib/wc2026';
+import { playerColor, flagCode } from '../../lib/wc2026-ui';
 
 const data = getTournamentData();
-
-const statusBadge: Record<typeof data.status, string> = {
-  'pre-draw': 'Draw pending',
-  'pre-tournament': 'Draw complete',
-  'in-progress': 'In progress',
-  complete: 'Complete',
-};
-
-const rulesOpen = data.status === 'pre-draw' || data.status === 'pre-tournament';
-const fmtSigned = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 ---
 
-<BaseLayout
-  title="WC2026 Sweepstake - jeansy.org"
-  description="Family World Cup 2026 sweepstake - allocation and live standings."
->
-  <Fragment slot="head">
-    <meta name="robots" content="noindex, nofollow" />
-  </Fragment>
-
-  <div class="max-w-4xl mx-auto py-8">
-    <div class="flex items-start justify-between mb-8">
-      <h1 class="text-2xl font-bold" style="color: var(--text-primary);">
-        WC2026 Sweepstake
-      </h1>
-      <span
-        class="text-xs uppercase tracking-widest px-2 py-1 rounded"
-        style="background-color: var(--border-color); color: var(--text-muted);"
-      >
-        {statusBadge[data.status]}
-      </span>
+<Layout title="Teams" active="teams">
+  {data.status === 'pre-draw' && (
+    <div class="callout">
+      <p class="label">Announcement</p>
+      <p class="callout-lead">
+        The draw takes place on <strong>Sunday 7 June 2026</strong>.
+      </p>
+      <p class="callout-text">
+        Eight players &mdash; Ella, Emily, Henry, Nichola, Pete, Richard, Sophie, Tega &mdash;
+        each receive six of the 48 teams. The allocation is randomised but balanced so
+        everyone holds one team from every strength tier. Standings begin updating
+        with the first kick-off on Thursday 11 June.
+      </p>
     </div>
+  )}
 
-    {/* ANNOUNCEMENT */}
-    {data.status === 'pre-draw' && (
-      <div class="border rounded-lg p-6 mb-10" style="border-color: var(--border-color); background-color: var(--bg-card);">
-        <p class="text-xs uppercase tracking-widest font-semibold mb-3" style="color: var(--text-muted);">
-          Announcement
-        </p>
-        <p class="text-lg mb-3" style="color: var(--text-primary);">
-          The draw takes place on <strong>Sunday 7 June 2026</strong>.
-        </p>
-        <p class="text-sm" style="color: var(--text-secondary);">
-          Eight players &mdash; Ella, Emily, Henry, Nichola, Pete, Richard, Sophie, Tega &mdash;
-          each receive six of the 48 teams. The allocation is randomised but balanced so
-          everyone holds one team from every strength tier. Standings begin updating
-          with the first kick-off on Thursday 11 June.
-        </p>
-      </div>
-    )}
-
-    {data.status === 'pre-tournament' && (
-      <div class="border rounded-lg p-6 mb-10" style="border-color: var(--border-color); background-color: var(--bg-card);">
-        <p class="text-xs uppercase tracking-widest font-semibold mb-3" style="color: var(--text-muted);">
-          Announcement
-        </p>
-        <p class="text-lg" style="color: var(--text-primary);">
-          Draw complete. <strong>Tournament kicks off Thursday 11 June 2026.</strong>
-        </p>
-      </div>
-    )}
-
-    {/* RULES */}
-    <details class="border rounded-lg p-6 mb-10" style="border-color: var(--border-color);" open={rulesOpen}>
-      <summary class="cursor-pointer text-xs uppercase tracking-widest font-semibold" style="color: var(--text-muted);">
-        Rules
-      </summary>
-      <div class="mt-6 space-y-6 text-sm" style="color: var(--text-secondary);">
-        <div>
-          <h3 class="text-xs uppercase tracking-widest font-semibold mb-2" style="color: var(--text-muted);">
-            The draw
-          </h3>
-          <ul class="list-disc pl-5 space-y-1">
-            <li>All 48 teams are sorted by FIFA rank and split into six strength tiers of eight.</li>
-            <li>Each player receives exactly one team from every tier.</li>
-            <li>No player holds two teams from the same group.</li>
-            <li>The draw is randomised but optimised to keep total squad strength balanced.</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xs uppercase tracking-widest font-semibold mb-2" style="color: var(--text-muted);">
-            The scoring
-          </h3>
-          <p class="mb-2">
-            Group stage: <strong>3</strong> points per win, <strong>1</strong> per draw (maximum 9 per team).
-          </p>
-          <p class="mb-3">
-            Knockout progression bonuses, cumulative &mdash; a team keeps the points for every round it clears:
-          </p>
-          <table class="text-sm mb-3">
-            <tbody>
-              <tr><td class="pr-6 py-0.5">Reach the Round of 32 (qualified)</td><td class="text-right" style="color: var(--text-primary);"><strong>5</strong></td></tr>
-              <tr><td class="pr-6 py-0.5">Reach the Round of 16</td><td class="text-right" style="color: var(--text-primary);"><strong>10</strong></td></tr>
-              <tr><td class="pr-6 py-0.5">Reach the Quarter-final</td><td class="text-right" style="color: var(--text-primary);"><strong>18</strong></td></tr>
-              <tr><td class="pr-6 py-0.5">Reach the Semi-final</td><td class="text-right" style="color: var(--text-primary);"><strong>30</strong></td></tr>
-              <tr><td class="pr-6 py-0.5">Reach the Final</td><td class="text-right" style="color: var(--text-primary);"><strong>45</strong></td></tr>
-              <tr><td class="pr-6 py-0.5">Win the World Cup</td><td class="text-right" style="color: var(--text-primary);"><strong>80</strong></td></tr>
-            </tbody>
-          </table>
-          <p>
-            A player's score is the sum across their six teams of group points plus the
-            deepest progression bonus reached. The table sorts by points, then goals for,
-            then goal difference.
-          </p>
-        </div>
-        <p class="text-xs" style="color: var(--text-muted);">
-          The 80-point champion bonus is calibrated so the winner's owner finishes top
-          of the table about 92% of the time. The remaining ~8% goes to whoever has the
-          broadest spread of deep runs across their six teams.
-        </p>
-      </div>
-    </details>
-
-    {/* SWEEPSTAKE STANDINGS */}
-    <div class="flex items-baseline justify-between mb-3 pb-2 border-b" style="border-color: var(--border-color);">
-      <h2 class="text-xs uppercase tracking-widest font-semibold" style="color: var(--text-muted);">
-        Sweepstake Standings
-      </h2>
-      <span class="text-xs" style="color: var(--text-muted);">
-        8 players, 6 teams each
-      </span>
+  {data.status === 'pre-tournament' && (
+    <div class="callout">
+      <p class="label">Announcement</p>
+      <p class="callout-lead">
+        Draw complete. <strong>Tournament kicks off Thursday 11 June 2026.</strong>
+      </p>
     </div>
+  )}
 
-    <div class="overflow-x-auto mb-12">
-      <table class="w-full text-sm" style="color: var(--text-secondary);">
-        <thead style="color: var(--text-muted);">
-          <tr class="border-b" style="border-color: var(--border-color);">
-            <th class="text-left px-2 py-2 font-normal">#</th>
-            <th class="text-left px-2 py-2 font-normal">Player</th>
-            <th class="text-right px-2 py-2 font-normal">Points</th>
-            <th class="text-right px-2 py-2 font-normal">GF</th>
-            <th class="text-right px-2 py-2 font-normal">GD</th>
-            <th class="text-left px-2 py-2 font-normal">Best Run</th>
-            <th class="text-right px-2 py-2 font-normal">Teams</th>
+  <section>
+    <div class="section-head">
+      <h2 class="label">Selected Teams</h2>
+      <span class="count">8 players, one team per tier</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Tier 1</th>
+            <th>Tier 2</th>
+            <th>Tier 3</th>
+            <th>Tier 4</th>
+            <th>Tier 5</th>
+            <th>Tier 6</th>
           </tr>
         </thead>
         <tbody>
           {data.players.map((p) => (
-            <tr class="border-b" style="border-color: var(--border-color);">
-              <td class="px-2 py-1.5" style="color: var(--text-muted);">{p.rank}</td>
-              <td class="px-2 py-1.5 whitespace-nowrap" style="color: var(--text-primary);">{p.name}</td>
-              <td class="px-2 py-1.5 text-right" style="color: var(--text-primary);">{p.points}</td>
-              <td class="px-2 py-1.5 text-right">{p.gf}</td>
-              <td class="px-2 py-1.5 text-right">{fmtSigned(p.gd)}</td>
-              <td class="px-2 py-1.5 whitespace-nowrap">{stageLabel(p.best)}</td>
-              <td class="px-2 py-1.5 text-right">
-                {p.teams.length === 0 ? <span style="color: var(--text-muted);">&mdash;</span> : p.teams.length}
+            <tr>
+              <td class="nowrap">
+                <span class="chip" style={`--accent:${playerColor(p.name)}`}>
+                  <span class="chip-dot"></span>{p.name}
+                </span>
               </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    {/* SQUADS - who owns which six teams, one row per player, one column per tier */}
-    <div class="flex items-baseline justify-between mb-3 pb-2 border-b" style="border-color: var(--border-color);">
-      <h2 class="text-xs uppercase tracking-widest font-semibold" style="color: var(--text-muted);">
-        Squads
-      </h2>
-      <span class="text-xs" style="color: var(--text-muted);">
-        One team per tier
-      </span>
-    </div>
-
-    <div class="overflow-x-auto mb-12">
-      <table class="w-full text-sm" style="color: var(--text-secondary);">
-        <thead style="color: var(--text-muted);">
-          <tr class="border-b" style="border-color: var(--border-color);">
-            <th class="text-left px-2 py-2 font-normal">Player</th>
-            <th class="text-left px-2 py-2 font-normal">Tier 1</th>
-            <th class="text-left px-2 py-2 font-normal">Tier 2</th>
-            <th class="text-left px-2 py-2 font-normal">Tier 3</th>
-            <th class="text-left px-2 py-2 font-normal">Tier 4</th>
-            <th class="text-left px-2 py-2 font-normal">Tier 5</th>
-            <th class="text-left px-2 py-2 font-normal">Tier 6</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.players.map((p) => (
-            <tr class="border-b" style="border-color: var(--border-color);">
-              <td class="px-2 py-1.5 whitespace-nowrap" style="color: var(--text-primary);">{p.name}</td>
               {[1, 2, 3, 4, 5, 6].map((tier) => {
                 const t = p.teams.find((x) => x.tier === tier);
                 return (
-                  <td class="px-2 py-1.5 whitespace-nowrap">
-                    {t ? t.country : <span style="color: var(--text-muted);">&mdash;</span>}
+                  <td class="nowrap">
+                    {t ? (
+                      <span class="team">
+                        {flagCode(t.country) && (
+                          <img class="flag" src={`https://flagcdn.com/w40/${flagCode(t.country)}.png`} srcset={`https://flagcdn.com/w80/${flagCode(t.country)}.png 2x`} width="20" height="14" alt="" loading="lazy" />
+                        )}
+                        {t.country}
+                      </span>
+                    ) : (
+                      <span class="muted">&mdash;</span>
+                    )}
                   </td>
                 );
               })}
@@ -197,56 +79,5 @@ const fmtSigned = (n: number) => (n > 0 ? `+${n}` : `${n}`);
         </tbody>
       </table>
     </div>
-
-    {/* TEAMS */}
-    <div class="flex items-baseline justify-between mb-3 pb-2 border-b" style="border-color: var(--border-color);">
-      <h2 class="text-xs uppercase tracking-widest font-semibold" style="color: var(--text-muted);">
-        Teams
-      </h2>
-      <span class="text-xs" style="color: var(--text-muted);">
-        48 teams, ordered by FIFA rank
-      </span>
-    </div>
-
-    <div class="overflow-x-auto mb-12">
-      <table class="w-full text-sm" style="color: var(--text-secondary);">
-        <thead style="color: var(--text-muted);">
-          <tr class="border-b" style="border-color: var(--border-color);">
-            <th class="text-left px-2 py-2 font-normal">#</th>
-            <th class="text-left px-2 py-2 font-normal">Country</th>
-            <th class="text-left px-2 py-2 font-normal">Grp</th>
-            <th class="text-right px-2 py-2 font-normal">FIFA</th>
-            <th class="text-left px-2 py-2 font-normal">Owner</th>
-            <th class="text-right px-2 py-2 font-normal">W</th>
-            <th class="text-right px-2 py-2 font-normal">D</th>
-            <th class="text-right px-2 py-2 font-normal">L</th>
-            <th class="text-right px-2 py-2 font-normal">GF</th>
-            <th class="text-right px-2 py-2 font-normal">GA</th>
-            <th class="text-right px-2 py-2 font-normal">Pts</th>
-            <th class="text-left px-2 py-2 font-normal">Stage</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.teams.map((t, i) => (
-            <tr class="border-b" style="border-color: var(--border-color);">
-              <td class="px-2 py-1.5" style="color: var(--text-muted);">{i + 1}</td>
-              <td class="px-2 py-1.5 whitespace-nowrap" style="color: var(--text-primary);">{t.country}</td>
-              <td class="px-2 py-1.5">{t.group}</td>
-              <td class="px-2 py-1.5 text-right">{t.fifa_rank}</td>
-              <td class="px-2 py-1.5 whitespace-nowrap">
-                {t.owner ?? <span style="color: var(--text-muted);">&mdash;</span>}
-              </td>
-              <td class="px-2 py-1.5 text-right">{t.gw}</td>
-              <td class="px-2 py-1.5 text-right">{t.gd}</td>
-              <td class="px-2 py-1.5 text-right">{t.gl}</td>
-              <td class="px-2 py-1.5 text-right">{t.gf}</td>
-              <td class="px-2 py-1.5 text-right">{t.ga}</td>
-              <td class="px-2 py-1.5 text-right" style="color: var(--text-primary);">{t.groupPoints}</td>
-              <td class="px-2 py-1.5 whitespace-nowrap">{stageLabel(t.stage)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</BaseLayout>
+  </section>
+</Layout>

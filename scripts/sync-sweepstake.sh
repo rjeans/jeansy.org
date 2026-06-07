@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 # Pulls WC2026 sweepstake data from the sister sweepstake repo into src/data/.
-# Optional files (allocation, results, standings) are removed when absent in the
-# source, so the page reflects the upstream state honestly.
+# Optional files (allocation, results, standings, matches) are removed when
+# absent in the source, so the page reflects the upstream state honestly.
+#
+# matches.csv schema (match-by-match results), one row per fixture:
+#   date,stage,group,home,home_score,away,away_score
+#   2026-06-11,GROUP,A,Mexico,2,South Africa,1
+# Leave home_score/away_score blank for fixtures not yet played. stage is one
+# of GROUP,R32,R16,QF,SF,FINAL; group is blank for knockout matches.
 set -e
 
 SRC="$HOME/Development/sweepstake"
@@ -32,5 +38,6 @@ sync_optional() {
 sync_optional allocation.csv
 sync_optional results.csv
 sync_optional standings.csv
+sync_optional matches.csv
 
 echo "Done."

@@ -83,10 +83,12 @@ def parse_match(event: dict) -> dict | None:
             "name": name,
             "score": score,
             "winner": bool(c.get("winner")),
+            "homeAway": c.get("homeAway", ""),
         })
     return {
         "stage": stage,
         "completed": is_completed(event),
+        "date": (event.get("date") or "")[:10],  # YYYY-MM-DD
         "teams": teams,
     }
 
@@ -157,6 +159,51 @@ def load_known_teams(path: str) -> set[str]:
     return teams
 
 
+def load_groups(path: str) -> dict[str, str]:
+    """country -> group letter, used to label group-stage matches."""
+    groups: dict[str, str] = {}
+    with open(path, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            groups[row["country"].strip()] = row.get("group", "").strip()
+    return groups
+
+
+def build_matches(events: list[dict], known: set[str], groups: dict[str, str]) -> list[dict]:
+    """One row per fixture (both competitors known). Scores blank until played."""
+    matches = []
+    for ev in events:
+        m = parse_match(ev)
+        if m is None:
+            continue
+        a, b = m["teams"]
+        if a["name"] not in known or b["name"] not in known:
+            continue  # skip TBD / unmatched knockout placeholders
+        # Order home then away when ESPN designates it; otherwise keep as-is.
+        if b["homeAway"] == "home" and a["homeAway"] != "home":
+            a, b = b, a
+        group = groups.get(a["name"], "") if m["stage"] == "GROUP" else ""
+        played = m["completed"]
+        matches.append({
+            "date": m["date"],
+            "stage": m["stage"],
+            "group": group,
+            "home": a["name"],
+            "home_score": a["score"] if played else "",
+            "away": b["name"],
+            "away_score": b["score"] if played else "",
+        })
+    matches.sort(key=lambda r: (r["date"], STAGE_ORDER.index(r["stage"]), r["home"]))
+    return matches
+
+
+def write_matches(matches: list[dict], path: str) -> None:
+    cols = ["date", "stage", "group", "home", "home_score", "away", "away_score"]
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=cols)
+        w.writeheader()
+        w.writerows(matches)
+
+
 def write_results(stats: dict, path: str) -> None:
     with open(path, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
@@ -173,10 +220,13 @@ def main(argv=None) -> int:
                     help="CSV listing the 48 teams (for name validation)")
     ap.add_argument("--output", default=os.path.join(here, "results.csv"),
                     help="where to write results.csv")
+    ap.add_argument("--matches", default=os.path.join(here, "matches.csv"),
+                    help="where to write the match-by-match matches.csv")
     ap.add_argument("--dates", default=DEFAULT_DATES, help="YYYYMMDD-YYYYMMDD range")
     args = ap.parse_args(argv)
 
     known = load_known_teams(args.teams)
+    groups = load_groups(args.teams)
 
     try:
         events = fetch_events(args.dates)
@@ -197,6 +247,11 @@ def main(argv=None) -> int:
     write_results(stats, args.output)
     print(f"Wrote {args.output}: {played}/48 teams with played matches"
           + (f", champion: {champion}." if champion else "."))
+
+    matches = build_matches(events, known, groups)
+    played_matches = sum(1 for m in matches if m["home_score"] != "")
+    write_matches(matches, args.matches)
+    print(f"Wrote {args.matches}: {len(matches)} fixtures, {played_matches} played.")
     return 0
 
 

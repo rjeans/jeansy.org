@@ -27,7 +27,8 @@ jobs:
         run: |
           python scripts/wc2026/fetch_results.py \
             --teams src/data/wc2026/teams.csv \
-            --output src/data/wc2026/results.csv
+            --output src/data/wc2026/results.csv \
+            --matches src/data/wc2026/matches.csv
 
       - name: Compute standings (if allocation exists)
         run: |
@@ -44,7 +45,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/wc2026/results.csv src/data/wc2026/standings.csv
+          git add src/data/wc2026/results.csv src/data/wc2026/standings.csv src/data/wc2026/matches.csv
           if git diff --cached --quiet; then
             echo "::notice::No changes."
             exit 0
