@@ -1,0 +1,53 @@
+name: Update WC2026 standings
+
+on:
+  schedule:
+    # Every 30 minutes. GitHub may delay during high load; that's fine.
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}   # manual trigger from the Actions tab
+
+permissions:
+  contents: write          # required to push the standings update
+
+concurrency:
+  group: update-wc2026
+  cancel-in-progress: false   # let any in-flight run finish
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Fetch latest results from ESPN
+        run: |
+          python scripts/wc2026/fetch_results.py \
+            --teams src/data/wc2026/teams.csv \
+            --output src/data/wc2026/results.csv
+
+      - name: Compute standings (if allocation exists)
+        run: |
+          if [ -f src/data/wc2026/allocation.csv ]; then
+            python scripts/wc2026/scoring.py \
+              --alloc src/data/wc2026/allocation.csv \
+              --results src/data/wc2026/results.csv \
+              --output src/data/wc2026/standings.csv
+          else
+            echo "::notice::No allocation.csv yet - skipping scoring (pre-draw)."
+          fi
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/wc2026/results.csv src/data/wc2026/standings.csv
+          if git diff --cached --quiet; then
+            echo "::notice::No changes."
+            exit 0
+          fi
+          git commit -m "wc2026: $(date -u +%Y-%m-%dT%H:%MZ) update"
+          git push
